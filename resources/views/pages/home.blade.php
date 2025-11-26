@@ -14,6 +14,11 @@
                         <img src="{{ $slider->image ? Storage::url($slider->image) : 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=400&fit=crop' }}" 
                              alt="{{ $slider->title }}" 
                              class="w-full h-full object-cover"
+                             width="1200"
+                             height="400"
+                             loading="{{ $index === 0 ? 'eager' : 'lazy' }}"
+                             fetchpriority="{{ $index === 0 ? 'high' : 'auto' }}"
+                             decoding="async"
                              onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=400&fit=crop'">
                         <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-800/60 to-transparent flex items-center">
                             <div class="container mx-auto px-6 md:px-12">
