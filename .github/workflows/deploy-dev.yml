@@ -8,98 +8,55 @@ on:
   workflow_dispatch: # Allow manual trigger
 
 jobs:
-  deploy:
-    name: Deploy to Dev Server
-    # Use self-hosted runner if available, fallback to ubuntu-latest
-    runs-on: ${{ vars.RUNNER_TYPE || 'ubuntu-latest' }}
+  build-and-deploy:
+    name: Build and Deploy to Development
+    runs-on: ubuntu-latest
     
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: 🐘 Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, xml, intl, curl, bcmath, zip
+
+      - name: 📚 Composer install
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: 🔨 Build assets
+        run: |
+          npm ci
+          npm run build
         
       - name: 🚀 Deploy to Dev Server via SSH
-        uses: appleboy/ssh-action@v1.0.0
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
-          script_stop: true
           script: |
-            set -e
-            echo "🔄 Starting DEV deployment..."
-            
-            # Navigate to project directory
-            PROJECT_DIR="${PROJECT_DIR:-/var/www/website-pramuka}"
-            echo "📂 Project directory: $PROJECT_DIR"
-            cd "$PROJECT_DIR" || { echo "❌ Project directory not found!"; exit 1; }
-            
-            # Pull latest changes from dev branch
-            echo "📦 Pulling latest code from dev branch..."
-            git fetch origin || { echo "⚠️ Git fetch failed, continuing..."; }
-            git checkout dev || { echo "⚠️ Already on dev branch"; }
-            git pull origin dev || { echo "❌ Git pull failed!"; exit 1; }
-            
-            # Install Composer dependencies (with dev packages for testing)
-            if command -v composer &> /dev/null; then
-              echo "📚 Installing Composer dependencies..."
-              composer install --optimize-autoloader --no-interaction || { echo "❌ Composer install failed!"; exit 1; }
-            else
-              echo "⚠️ Composer not found, skipping..."
-            fi
-            
-            # Install NPM dependencies
-            if command -v npm &> /dev/null; then
-              echo "📦 Installing NPM dependencies..."
-              npm install || { echo "❌ NPM install failed!"; exit 1; }
-              
-              # Build assets with optimizations
-              echo "🔨 Building optimized assets..."
-              npm run build || { echo "❌ NPM build failed!"; exit 1; }
-            else
-              echo "⚠️ NPM not found, skipping build..."
-            fi
-            
-            # Clear all Laravel caches
-            echo "🧹 Clearing caches..."
-            php artisan optimize:clear || echo "⚠️ Cache clear failed, continuing..."
-            
-            # Optimize Laravel
-            echo "⚡ Optimizing Laravel..."
-            php artisan optimize || echo "⚠️ Optimize failed, continuing..."
-            
-            # Generate sitemap
-            echo "🗺️ Generating sitemap..."
-            php artisan sitemap:generate || echo "⚠️ Sitemap generation failed, continuing..."
-            
-            # Fix permissions (try sudo, fallback to regular)
-            echo "🔐 Fixing permissions..."
-            if command -v sudo &> /dev/null && sudo -n true 2>/dev/null; then
-              sudo chown -R www-data:www-data storage bootstrap/cache public 2>/dev/null || chown -R www-data:www-data storage bootstrap/cache public 2>/dev/null || echo "⚠️ Permission change failed"
-              sudo chmod -R 775 storage bootstrap/cache 2>/dev/null || chmod -R 775 storage bootstrap/cache 2>/dev/null || echo "⚠️ Chmod failed"
-            else
-              chown -R www-data:www-data storage bootstrap/cache public 2>/dev/null || echo "⚠️ Permission change failed (no sudo)"
-              chmod -R 775 storage bootstrap/cache 2>/dev/null || echo "⚠️ Chmod failed"
-            fi
-            
-            # Reload Nginx (try sudo, fallback to service)
-            echo "🔄 Reloading Nginx..."
-            if command -v sudo &> /dev/null && sudo -n true 2>/dev/null; then
-              sudo systemctl reload nginx 2>/dev/null || sudo service nginx reload 2>/dev/null || echo "⚠️ Nginx reload failed (needs manual reload)"
-            else
-              systemctl reload nginx 2>/dev/null || service nginx reload 2>/dev/null || echo "⚠️ Nginx reload failed (no sudo)"
-            fi
-            
-            echo "✅ DEV deployment completed successfully!"
+            cd /var/www/website-pramuka
+            git pull origin dev
+            composer install --no-interaction --prefer-dist --optimize-autoloader
+            npm ci
+            npm run build
+            php artisan migrate --force
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan sitemap:generate || echo "⚠️ Sitemap generation skipped"
+            systemctl restart php8.2-fpm
+            systemctl reload nginx
+            echo "✅ Development deployment successful!"
             
       - name: 🎉 Deployment Success
         if: success()
-        run: |
-          echo "✅ Dev application deployed successfully!"
-          echo "🌐 Visit your dev website to verify"
-          
-      - name: ❌ Deployment Failed
-        if: failure()
-        run: |
-          echo "❌ Dev deployment failed! Check the logs above."
-          exit 1
+        run: echo "✅ Development deployed successfully!"
