@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Filament\Resources\ProfileMenus\Tables;
+namespace App\Filament\Resources\OrganizationMenus\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Table;
 
-class ProfileMenusTable
+class OrganizationMenusTable
 {
     public static function configure(Table $table): Table
     {

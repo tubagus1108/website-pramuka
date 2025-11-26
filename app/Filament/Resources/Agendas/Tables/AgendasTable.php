@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Filament\Resources\ProfileMenus\Tables;
+namespace App\Filament\Resources\Agendas\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Table;
 
-class ProfileMenusTable
+class AgendasTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
                 \Filament\Tables\Columns\TextColumn::make('title')
-                    ->label('Judul Submenu')
+                    ->label('Judul Agenda')
                     ->searchable(),
-                \Filament\Tables\Columns\TextColumn::make('content')
-                    ->label('Isi Konten')
-                    ->limit(80),
-                \Filament\Tables\Columns\IconColumn::make('is_active')
-                    ->label('Aktif')
-                    ->boolean(),
+                \Filament\Tables\Columns\TextColumn::make('date')
+                    ->label('Tanggal & Waktu')
+                    ->dateTime(),
+                \Filament\Tables\Columns\TextColumn::make('google_calendar_url')
+                    ->label('Google Calendar URL')
+                    ->url(fn($record) => $record->google_calendar_url),
             ])
             ->filters([
                 //

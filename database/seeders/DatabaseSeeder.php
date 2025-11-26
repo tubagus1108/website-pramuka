@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             ProfileMenuSeeder::class,
+            OrganizationMenuSeeder::class,
         ]);
 
     }
