@@ -1,0 +1,83 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  deploy:
+    name: Deploy to Server
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        
+      - name: 🚀 Deploy to Server via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 22
+          script: |
+            echo "🔄 Starting deployment..."
+            
+            # Navigate to project directory
+            cd /var/www/website-pramuka || exit 1
+            
+            # Pull latest changes
+            echo "📦 Pulling latest code from GitHub..."
+            git pull origin main || git pull origin master
+            
+            # Install Composer dependencies
+            echo "📚 Installing Composer dependencies..."
+            composer install --optimize-autoloader --no-dev --no-interaction
+            
+            # Install NPM dependencies
+            echo "📦 Installing NPM dependencies..."
+            npm install --production
+            
+            # Build assets with optimizations
+            echo "🔨 Building optimized assets..."
+            npm run build
+            
+            # Clear all Laravel caches
+            echo "🧹 Clearing caches..."
+            php artisan optimize:clear
+            
+            # Optimize Laravel
+            echo "⚡ Optimizing Laravel..."
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            
+            # Generate sitemap
+            echo "🗺️ Generating sitemap..."
+            php artisan sitemap:generate
+            
+            # Fix permissions
+            echo "🔐 Fixing permissions..."
+            sudo chown -R www-data:www-data storage bootstrap/cache public
+            sudo chmod -R 775 storage bootstrap/cache
+            
+            # Reload Nginx
+            echo "🔄 Reloading Nginx..."
+            sudo systemctl reload nginx
+            
+            echo "✅ Deployment completed successfully!"
+            
+      - name: 🎉 Deployment Success
+        if: success()
+        run: |
+          echo "✅ Application deployed successfully!"
+          echo "🌐 Visit your website to verify"
+          
+      - name: ❌ Deployment Failed
+        if: failure()
+        run: |
+          echo "❌ Deployment failed! Check the logs above."
+          exit 1
