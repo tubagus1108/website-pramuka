@@ -23,50 +23,72 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
+          script_stop: true
           script: |
+            set -e
             echo "🔄 Starting deployment..."
             
             # Navigate to project directory
-            cd /var/www/website-pramuka || exit 1
+            PROJECT_DIR="${PROJECT_DIR:-/var/www/website-pramuka}"
+            echo "📂 Project directory: $PROJECT_DIR"
+            cd "$PROJECT_DIR" || { echo "❌ Project directory not found!"; exit 1; }
             
             # Pull latest changes
             echo "📦 Pulling latest code from GitHub..."
-            git pull origin main || git pull origin master
+            git fetch origin || { echo "⚠️ Git fetch failed, continuing..."; }
+            git pull origin main 2>/dev/null || git pull origin master || { echo "❌ Git pull failed!"; exit 1; }
             
             # Install Composer dependencies
-            echo "📚 Installing Composer dependencies..."
-            composer install --optimize-autoloader --no-dev --no-interaction
+            if command -v composer &> /dev/null; then
+              echo "📚 Installing Composer dependencies..."
+              composer install --optimize-autoloader --no-dev --no-interaction || { echo "❌ Composer install failed!"; exit 1; }
+            else
+              echo "⚠️ Composer not found, skipping..."
+            fi
             
             # Install NPM dependencies
-            echo "📦 Installing NPM dependencies..."
-            npm install --production
-            
-            # Build assets with optimizations
-            echo "🔨 Building optimized assets..."
-            npm run build
+            if command -v npm &> /dev/null; then
+              echo "📦 Installing NPM dependencies..."
+              npm install --production || { echo "❌ NPM install failed!"; exit 1; }
+              
+              # Build assets with optimizations
+              echo "🔨 Building optimized assets..."
+              npm run build || { echo "❌ NPM build failed!"; exit 1; }
+            else
+              echo "⚠️ NPM not found, skipping build..."
+            fi
             
             # Clear all Laravel caches
             echo "🧹 Clearing caches..."
-            php artisan optimize:clear
+            php artisan optimize:clear || echo "⚠️ Cache clear failed, continuing..."
             
             # Optimize Laravel
             echo "⚡ Optimizing Laravel..."
-            php artisan config:cache
-            php artisan route:cache
-            php artisan view:cache
+            php artisan config:cache || echo "⚠️ Config cache failed"
+            php artisan route:cache || echo "⚠️ Route cache failed"
+            php artisan view:cache || echo "⚠️ View cache failed"
             
             # Generate sitemap
             echo "🗺️ Generating sitemap..."
-            php artisan sitemap:generate
+            php artisan sitemap:generate || echo "⚠️ Sitemap generation failed, continuing..."
             
-            # Fix permissions
+            # Fix permissions (try sudo, fallback to regular)
             echo "🔐 Fixing permissions..."
-            sudo chown -R www-data:www-data storage bootstrap/cache public
-            sudo chmod -R 775 storage bootstrap/cache
+            if command -v sudo &> /dev/null && sudo -n true 2>/dev/null; then
+              sudo chown -R www-data:www-data storage bootstrap/cache public 2>/dev/null || chown -R www-data:www-data storage bootstrap/cache public 2>/dev/null || echo "⚠️ Permission change failed"
+              sudo chmod -R 775 storage bootstrap/cache 2>/dev/null || chmod -R 775 storage bootstrap/cache 2>/dev/null || echo "⚠️ Chmod failed"
+            else
+              chown -R www-data:www-data storage bootstrap/cache public 2>/dev/null || echo "⚠️ Permission change failed (no sudo)"
+              chmod -R 775 storage bootstrap/cache 2>/dev/null || echo "⚠️ Chmod failed"
+            fi
             
-            # Reload Nginx
+            # Reload Nginx (try sudo, fallback to service)
             echo "🔄 Reloading Nginx..."
-            sudo systemctl reload nginx
+            if command -v sudo &> /dev/null && sudo -n true 2>/dev/null; then
+              sudo systemctl reload nginx 2>/dev/null || sudo service nginx reload 2>/dev/null || echo "⚠️ Nginx reload failed (needs manual reload)"
+            else
+              systemctl reload nginx 2>/dev/null || service nginx reload 2>/dev/null || echo "⚠️ Nginx reload failed (no sudo)"
+            fi
             
             echo "✅ Deployment completed successfully!"
             
