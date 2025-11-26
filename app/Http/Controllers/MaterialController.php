@@ -23,20 +23,20 @@ class MaterialController extends Controller
 
         // Filter by tag
         if ($request->has('tag') && $request->tag) {
-            $query->where('tags', 'like', '%' . $request->tag . '%');
+            $query->where('tags', 'like', '%'.$request->tag.'%');
         }
 
         // Search
         if ($request->has('search') && $request->search) {
             $query->where(function ($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->search . '%')
-                  ->orWhere('content', 'like', '%' . $request->search . '%')
-                  ->orWhere('description', 'like', '%' . $request->search . '%');
+                $q->where('title', 'like', '%'.$request->search.'%')
+                    ->orWhere('content', 'like', '%'.$request->search.'%')
+                    ->orWhere('description', 'like', '%'.$request->search.'%');
             });
         }
 
         $materials = $query->orderByDesc('published_at')->paginate(12);
-        
+
         // Get available categories and levels
         $categories = Material::where('is_active', true)
             ->distinct()
@@ -44,7 +44,7 @@ class MaterialController extends Controller
             ->filter()
             ->sort()
             ->values();
-            
+
         $levels = Material::where('is_active', true)
             ->distinct()
             ->pluck('level')
@@ -52,7 +52,7 @@ class MaterialController extends Controller
             ->sort()
             ->values();
 
-        return view('materials', compact('materials', 'categories', 'levels'));
+        return view('pages.materials.index', compact('materials', 'categories', 'levels'));
     }
 
     public function show(string $slug)
@@ -60,7 +60,7 @@ class MaterialController extends Controller
         $material = Material::where('slug', $slug)
             ->where('is_active', true)
             ->firstOrFail();
-            
+
         // Increment views
         $material->incrementViews();
 
@@ -79,6 +79,6 @@ class MaterialController extends Controller
             ->limit(5)
             ->get();
 
-        return view('material-detail', compact('material', 'relatedMaterials', 'popularMaterials'));
+        return view('pages.materials.show', compact('material', 'relatedMaterials', 'popularMaterials'));
     }
 }

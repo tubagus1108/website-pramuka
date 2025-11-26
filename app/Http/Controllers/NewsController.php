@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\News;
 use App\Models\Agenda;
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -19,20 +19,20 @@ class NewsController extends Controller
 
         // Filter by tag
         if ($request->has('tag') && $request->tag) {
-            $query->where('tags', 'like', '%' . $request->tag . '%');
+            $query->where('tags', 'like', '%'.$request->tag.'%');
         }
 
         // Search
         if ($request->has('search') && $request->search) {
             $query->where(function ($q) use ($request) {
-                $q->where('title', 'like', '%' . $request->search . '%')
-                  ->orWhere('content', 'like', '%' . $request->search . '%')
-                  ->orWhere('excerpt', 'like', '%' . $request->search . '%');
+                $q->where('title', 'like', '%'.$request->search.'%')
+                    ->orWhere('content', 'like', '%'.$request->search.'%')
+                    ->orWhere('excerpt', 'like', '%'.$request->search.'%');
             });
         }
 
         $news = $query->orderByDesc('published_at')->paginate(12);
-        
+
         // Get available categories for filter
         $categories = News::where('is_active', true)
             ->distinct()
@@ -41,7 +41,7 @@ class NewsController extends Controller
             ->sort()
             ->values();
 
-        return view('news', compact('news', 'categories'));
+        return view('pages.news.index', compact('news', 'categories'));
     }
 
     public function show(string $slug)
@@ -72,6 +72,6 @@ class NewsController extends Controller
             ->limit(5)
             ->get();
 
-        return view('news-detail', compact('news', 'relatedNews', 'latestNews', 'agendas'));
+        return view('pages.news.show', compact('news', 'relatedNews', 'latestNews', 'agendas'));
     }
 }
