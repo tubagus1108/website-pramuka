@@ -228,7 +228,15 @@
                         Video Terbaru
                     </h4>
                     <div class="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg overflow-hidden shadow-inner">
-                        <iframe width="100%" height="100%" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                        <iframe width="100%"
+                                height="100%"
+                                src="..."
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                                class="rounded-lg"
+                                title="Video profil Pramuka UIN Suna">
+                        </iframe>
                     </div>
                 </div>
 
@@ -256,20 +264,20 @@
                         Terhubung dengan Kami
                     </h4>
                     <div class="grid grid-cols-2 gap-2 md:gap-3">
-                        <a href="#" class="bg-white/20 hover:bg-white/30 backdrop-blur rounded-lg p-2 md:p-3 text-center transition transform hover:scale-105">
-                            <i class="fab fa-facebook-f text-xl md:text-2xl mb-1 md:mb-2"></i>
+                        <a href="#" aria-label="Ikuti kami di Facebook" class="bg-white/20 hover:bg-white/30 backdrop-blur rounded-lg p-2 md:p-3 text-center transition transform hover:scale-105">
+                            <i class="fab fa-facebook-f text-xl md:text-2xl mb-1 md:mb-2" aria-hidden="true"></i>
                             <p class="text-xs">Facebook</p>
                         </a>
-                        <a href="#" class="bg-white/20 hover:bg-white/30 backdrop-blur rounded-lg p-2 md:p-3 text-center transition transform hover:scale-105">
-                            <i class="fab fa-twitter text-xl md:text-2xl mb-1 md:mb-2"></i>
+                        <a href="#" aria-label="Ikuti kami di Twitter" class="bg-white/20 hover:bg-white/30 backdrop-blur rounded-lg p-2 md:p-3 text-center transition transform hover:scale-105">
+                            <i class="fab fa-twitter text-xl md:text-2xl mb-1 md:mb-2" aria-hidden="true"></i>
                             <p class="text-xs">Twitter</p>
                         </a>
-                        <a href="#" class="bg-white/20 hover:bg-white/30 backdrop-blur rounded-lg p-2 md:p-3 text-center transition transform hover:scale-105">
-                            <i class="fab fa-instagram text-xl md:text-2xl mb-1 md:mb-2"></i>
+                        <a href="#" aria-label="Ikuti kami di Instagram" class="bg-white/20 hover:bg-white/30 backdrop-blur rounded-lg p-2 md:p-3 text-center transition transform hover:scale-105">
+                            <i class="fab fa-instagram text-xl md:text-2xl mb-1 md:mb-2" aria-hidden="true"></i>
                             <p class="text-xs">Instagram</p>
                         </a>
-                        <a href="#" class="bg-white/20 hover:bg-white/30 backdrop-blur rounded-lg p-2 md:p-3 text-center transition transform hover:scale-105">
-                            <i class="fab fa-youtube text-xl md:text-2xl mb-1 md:mb-2"></i>
+                        <a href="#" aria-label="Tonton kami di YouTube" class="bg-white/20 hover:bg-white/30 backdrop-blur rounded-lg p-2 md:p-3 text-center transition transform hover:scale-105">
+                            <i class="fab fa-youtube text-xl md:text-2xl mb-1 md:mb-2" aria-hidden="true"></i>
                             <p class="text-xs">YouTube</p>
                         </a>
                     </div>

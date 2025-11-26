@@ -127,14 +127,16 @@
                             <div class="flex flex-wrap gap-2">
                                 <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}" 
                                    target="_blank" 
+                                   aria-label="Bagikan ke Facebook"
                                    class="flex items-center gap-2 bg-blue-600 text-white px-3 md:px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm">
-                                    <i class="fab fa-facebook-f"></i>
+                                    <i class="fab fa-facebook-f" aria-hidden="true"></i>
                                     <span class="hidden sm:inline">Facebook</span>
                                 </a>
                                 <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($material->title) }}" 
                                    target="_blank" 
+                                   aria-label="Bagikan ke Twitter"
                                    class="flex items-center gap-2 bg-sky-500 text-white px-3 md:px-4 py-2 rounded-lg hover:bg-sky-600 transition text-sm">
-                                    <i class="fab fa-twitter"></i>
+                                    <i class="fab fa-twitter" aria-hidden="true"></i>
                                     <span class="hidden sm:inline">Twitter</span>
                                 </a>
                                 <a href="https://wa.me/?text={{ urlencode($material->title . ' ' . request()->url()) }}" 
