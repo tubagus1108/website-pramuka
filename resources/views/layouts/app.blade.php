@@ -3,15 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Pramuka</title>
+    <title>@yield('title', 'Pramuka DIY - Kwartir Daerah Daerah Istimewa Yogyakarta')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <!-- Header, Navbar, dsb bisa ditambahkan di sini -->
+<body class="bg-gradient-to-br from-gray-50 via-blue-50 to-yellow-50 min-h-screen">
     @yield('content')
-    <!-- Footer -->
-    <footer class="mt-12 py-6 text-center text-xs text-gray-500">
-        &copy; {{ date('Y') }} Website Pramuka
-    </footer>
 </body>
 </html>

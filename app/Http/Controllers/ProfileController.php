@@ -13,9 +13,11 @@ class ProfileController extends Controller
         return view('profile', compact('menus'));
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $menu = ProfileMenu::where('is_active', true)->findOrFail($id);
+        $menu = ProfileMenu::where('slug', $slug)
+            ->where('is_active', true)
+            ->firstOrFail();
         return view('profile-detail', compact('menu'));
     }
 }

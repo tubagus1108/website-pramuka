@@ -27,6 +27,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ProfileMenuSeeder::class,
             OrganizationMenuSeeder::class,
+            NewsSeeder::class,
+            SliderSeeder::class,
+            AgendaSeeder::class,
         ]);
 
     }

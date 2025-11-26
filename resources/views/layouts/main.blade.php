@@ -2,15 +2,23 @@
 
 @section('content')
     {{-- HEADER TOP BANNER --}}
-    <div class="bg-white border-b">
-        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between py-2 px-4">
-            <div class="flex items-center gap-4">
-                <img src="/logo.png" alt="Logo" class="h-16">
-                <span class="font-bold text-xl text-blue-700">PRAMUKADIY</span>
+    <div class="bg-gradient-to-r from-blue-800 via-blue-700 to-blue-900 border-b-4 border-yellow-400 shadow-lg">
+        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between py-2 md:py-3 px-4">
+            <div class="flex items-center gap-2 md:gap-3 mb-2 md:mb-0">
+                <img src="/img/Logo-Pramuka.jpeg" alt="Logo Pramuka" class="h-12 md:h-16 w-auto drop-shadow-lg rounded">
+                <div>
+                    <h1 class="font-bold text-lg md:text-xl text-white drop-shadow">PRAMUKADIY</h1>
+                    <p class="text-xs text-yellow-200">Kwartir Daerah DIY</p>
+                </div>
             </div>
-            <div class="flex flex-col md:flex-row gap-2 items-center">
-                <img src="/banner.png" alt="Banner" class="h-12 md:h-16">
-                <span class="text-xs text-gray-600">#PramukaIstimewa</span>
+            <div class="flex items-center gap-2 md:gap-4">
+                <div class="bg-gradient-to-r from-green-500 to-green-600 text-white px-3 md:px-4 py-1 md:py-2 rounded-lg text-center shadow-md transform hover:scale-105 transition">
+                    <span class="block text-xs md:text-sm font-bold">Selamat Bertugas</span>
+                </div>
+                <div class="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-3 md:px-4 py-1 md:py-2 rounded-lg text-center shadow-md transform hover:scale-105 transition">
+                    <span class="block text-xs md:text-sm font-bold">Kak GKR Hayu</span>
+                </div>
+                <img src="/img/Logo-Pramuka.jpeg" alt="Logo DIY" class="h-12 md:h-16 w-auto drop-shadow-lg hidden sm:block rounded">
             </div>
         </div>
     </div>
@@ -18,122 +26,70 @@
     {{-- NAVBAR --}}
     @php
         $menus = [
-            ['url' => '/profile', 'label' => 'PROFIL'],
-            ['url' => '/organization', 'label' => 'ORGANISASI'],
+            ['url' => '/', 'label' => 'HOME'],
+            ['url' => '/profile', 'label' => 'PROFIL', 'dropdown' => true],
+            ['url' => '/organization', 'label' => 'ORGANISASI', 'dropdown' => true],
             ['url' => '/agenda', 'label' => 'AGENDA'],
             ['url' => '/news', 'label' => 'BERITA'],
-            ['url' => '#', 'label' => 'MATERI'],
+            ['url' => '/materials', 'label' => 'MATERI'],
             ['url' => '#', 'label' => 'DOKUMEN'],
-            ['url' => '#', 'label' => 'TAUTAN'],
+            ['url' => '#', 'label' => 'GALERI'],
         ];
         $profileMenus = \App\Models\ProfileMenu::where('is_active', true)->get();
+        $organizationMenus = \App\Models\OrganizationMenu::where('is_active', true)->get();
     @endphp
-    @include('components.navbar', ['menus' => $menus, 'profileMenus' => $profileMenus])
+    @include('components.navbar', ['menus' => $menus, 'profileMenus' => $profileMenus, 'organizationMenus' => $organizationMenus])
 
-    {{-- SLIDER --}}
-    <div class="container mx-auto px-4 mt-4">
-        <div class="w-full h-64 md:h-96 bg-gray-200 rounded-lg flex items-center justify-center mb-4">
-            <span class="text-2xl font-bold text-gray-500">Slider Berita Utama</span>
-        </div>
-    </div>
-
-    {{-- MAIN CONTENT GRID --}}
-    <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div class="md:col-span-3 space-y-6">
-            {{-- NEWSFLASH --}}
-            <div class="bg-white rounded shadow p-4">
-                <span class="bg-blue-700 text-white px-2 py-1 rounded text-xs font-bold">NEWSFLASH</span>
-                <span class="ml-2 text-gray-700">Berikut Rincian Juara Pertapa Wiradya XXXVII Tahun 2025</span>
-            </div>
-            {{-- NEWS GRID --}}
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                @foreach($news ?? [] as $item)
-                    <div class="bg-white rounded shadow hover:shadow-lg overflow-hidden">
-                        <img src="{{ $item->image }}" alt="{{ $item->title }}" class="w-full h-32 object-cover">
-                        <div class="p-3">
-                            <span class="block text-xs text-blue-700 font-bold mb-1">{{ $item->category }}</span>
-                            <h3 class="font-semibold text-base mb-2">{{ $item->title }}</h3>
-                            <span class="text-xs text-gray-500">{{ $item->published_at->format('d M Y') }}</span>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-            {{-- ARTICLES --}}
-            <div class="bg-white rounded shadow p-4">
-                <h4 class="font-bold mb-2">Artikel Pramuka</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    @foreach($articles ?? [] as $article)
-                        <div class="border-b pb-2">
-                            <h5 class="font-semibold">{{ $article->title }}</h5>
-                            <span class="text-xs text-gray-500">{{ $article->published_at->format('d M Y') }}</span>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-            {{-- MATERI --}}
-            <div class="bg-white rounded shadow p-4">
-                <h4 class="font-bold mb-2">Materi Kepramukaan</h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    @foreach($materi ?? [] as $materiItem)
-                        <div class="border-b pb-2">
-                            <h5 class="font-semibold">{{ $materiItem->title }}</h5>
-                            <span class="text-xs text-gray-500">{{ $materiItem->published_at->format('d M Y') }}</span>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-        <div class="space-y-6">
-            {{-- AGENDA --}}
-            <div class="bg-white rounded shadow p-4">
-                <h4 class="font-bold mb-2">Agenda Kegiatan</h4>
-                <ul class="space-y-2">
-                    @foreach($agendas ?? [] as $agenda)
-                        <li class="text-sm text-gray-700 border-b pb-1">{{ $agenda->date->format('d M Y') }} - {{ $agenda->title }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            {{-- TRENDING TAGS --}}
-            <div class="bg-white rounded shadow p-4">
-                <h4 class="font-bold mb-2">TRENDING TAGS</h4>
-                <div class="flex flex-wrap gap-2">
-                    @foreach($tags ?? [] as $tag)
-                        <a href="/news?tag={{ $tag }}" class="text-xs text-blue-700 hover:underline">{{ $tag }}</a>
-                    @endforeach
-                </div>
-            </div>
-            {{-- SIDEBAR WIDGETS (dummy) --}}
-            <div class="bg-white rounded shadow p-4">
-                <h4 class="font-bold mb-2">Radio Pramuka Istimewa</h4>
-                <audio controls class="w-full">
-                    <source src="/radio.mp3" type="audio/mpeg">
-                    Browser tidak mendukung audio.
-                </audio>
-            </div>
-            <div class="bg-white rounded shadow p-4">
-                <h4 class="font-bold mb-2">Terhubung dengan kami</h4>
-                <div class="flex gap-2">
-                    <a href="#" class="text-blue-700"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="text-blue-700"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-blue-700"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-blue-700"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-        </div>
+    {{-- MAIN CONTENT --}}
+    <div class="min-h-screen">
+        @yield('main-content')
     </div>
 
     {{-- FOOTER --}}
-    <footer class="bg-blue-900 text-white mt-12 py-8">
-        <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-4">
-            <div class="flex items-center gap-4 mb-4 md:mb-0">
-                <img src="/logo.png" alt="Logo" class="h-16">
+    <footer class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white mt-8 md:mt-12 py-6 md:py-8 border-t-4 border-yellow-400">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <div class="flex items-start gap-3 md:gap-4">
+                    <img src="/img/Logo-Pramuka.jpeg" alt="Logo" class="h-16 md:h-20 w-auto drop-shadow-lg rounded">
+                    <div>
+                        <h3 class="font-bold text-base md:text-lg mb-2 text-yellow-400">YOGYAKARTA</h3>
+                        <p class="text-xs leading-relaxed">
+                            Kwartir Daerah<br>
+                            Gerakan Pramuka<br>
+                            Daerah Istimewa Yogyakarta
+                        </p>
+                    </div>
+                </div>
                 <div>
-                    <span class="font-bold text-lg">YOGYAKARTA</span><br>
-                    <span class="text-xs">Sekretariat: Gedung Dinas Pariwisata DIY, Jl. Cendana, Yogyakarta</span>
+                    <h4 class="font-bold mb-3 text-yellow-400 text-sm md:text-base">Sekretariat</h4>
+                    <p class="text-xs md:text-sm leading-relaxed">
+                        Gedung Dinas Pariwisata DIY<br>
+                        Jl. Cendana No. 11, Semaki<br>
+                        Umbulharjo, Yogyakarta 55166<br>
+                        <span class="text-yellow-200">Telp: (0274) 562391</span><br>
+                        <span class="text-yellow-200">Email: kwarda@pramukadiy.or.id</span>
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-3 text-yellow-400 text-sm md:text-base">Ikuti Kami</h4>
+                    <div class="flex gap-2 md:gap-3 mb-4">
+                        <a href="#" class="w-9 h-9 md:w-10 md:h-10 bg-white text-blue-900 rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
+                            <i class="fab fa-facebook-f text-sm md:text-base"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 md:w-10 md:h-10 bg-white text-blue-900 rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
+                            <i class="fab fa-twitter text-sm md:text-base"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 md:w-10 md:h-10 bg-white text-blue-900 rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
+                            <i class="fab fa-instagram text-sm md:text-base"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 md:w-10 md:h-10 bg-white text-blue-900 rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
+                            <i class="fab fa-youtube text-sm md:text-base"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <div class="text-xs">
-                &copy; {{ date('Y') }} Website Pramuka DIY
+            <div class="border-t border-blue-700 mt-4 md:mt-6 pt-4 md:pt-6 text-center text-xs md:text-sm">
+                &copy; {{ date('Y') }} Kwartir Daerah Gerakan Pramuka DIY. All rights reserved.
             </div>
         </div>
     </footer>
