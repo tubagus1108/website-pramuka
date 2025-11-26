@@ -17,6 +17,6 @@
 <meta property="twitter:url" content="{{ url()->current() }}">
 <meta property="twitter:title" content="{{ $title ?? 'Pramuka UIN Sultanah Nahrasiyah' }}">
 <meta property="twitter:description" content="{{ $description ?? 'Racana Gerakan Pramuka UIN Sultanah Nahrasiyah' }}">
-<meta property="twitter:image" content="{{ $image ?? asset('img/Logo-Pramuka.jpeg') }}">
+<meta property="twitter:image" content="{{ $image ?? asset('img/Logo-Pramuka-small.jpeg') }}">
 <meta name="google-site-verification" content="0c7zuBsd-yviYVne4OHk0-XLTHhgN0APvgV5ctONMJo" />
 
