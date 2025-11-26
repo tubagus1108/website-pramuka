@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@php
+    use Illuminate\Support\Facades\Storage;
+@endphp
+
 @section('main-content')
     <div class="container mx-auto px-4 py-6 md:py-8">
         {{-- BREADCRUMB --}}
@@ -28,7 +32,7 @@
                         <i class="fas fa-newspaper text-4xl md:text-5xl"></i>
                     </div>
                     <div>
-                        <h1 class="text-2xl md:text-4xl font-bold mb-2">Berita Pramuka DIY</h1>
+                        <h1 class="text-2xl md:text-4xl font-bold mb-2">Berita Pramuka UIN Sultanah Nahrasiyah</h1>
                         <p class="text-sm md:text-base text-blue-100">Update Terkini Kegiatan Kepramukaan</p>
                     </div>
                 </div>
@@ -141,7 +145,7 @@
                             {{-- IMAGE --}}
                             <div class="relative overflow-hidden aspect-video bg-gray-200">
                                 @if($item->image)
-                                    <img src="{{ $item->image }}" 
+                                    <img src="{{ Storage::url($item->image) }}" 
                                          alt="{{ $item->title }}" 
                                          class="w-full h-full object-cover group-hover:scale-110 transition duration-300"
                                          onerror="this.src='https://via.placeholder.com/600x400/1e40af/ffffff?text=Pramuka+DIY'">

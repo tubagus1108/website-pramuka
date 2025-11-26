@@ -29,7 +29,7 @@
                     </div>
                     <div>
                         <h1 class="text-2xl md:text-4xl font-bold mb-2">Agenda Kegiatan</h1>
-                        <p class="text-sm md:text-base text-green-100">Kalender Kegiatan Pramuka DIY</p>
+                        <p class="text-sm md:text-base text-green-100">Kalender Kegiatan Pramuka UIN Sultanah Nahrasiyah</p>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@php
+    use Illuminate\Support\Facades\Storage;
+@endphp
+
 @section('main-content')
     <div class="container mx-auto px-4 py-6 md:py-8">
         {{-- BREADCRUMB --}}
@@ -165,7 +169,7 @@
                             {{-- IMAGE --}}
                             <div class="relative overflow-hidden aspect-video bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
                                 @if($material->image)
-                                    <img src="{{ $material->image }}" 
+                                    <img src="{{ Storage::url($material->image) }}" 
                                          alt="{{ $material->title }}" 
                                          class="w-full h-full object-cover group-hover:scale-110 transition duration-300"
                                          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">

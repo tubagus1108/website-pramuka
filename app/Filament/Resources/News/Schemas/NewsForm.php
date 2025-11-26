@@ -42,7 +42,9 @@ class NewsForm
                 FileUpload::make('image')
                     ->label('Gambar Berita')
                     ->image()
+                    ->disk('public')
                     ->directory('news')
+                    ->visibility('public')
                     ->imageEditor()
                     ->maxSize(2048),
                 Select::make('category')

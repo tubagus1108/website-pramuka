@@ -15,7 +15,10 @@ class NewsTable
             ->columns([
                 \Filament\Tables\Columns\ImageColumn::make('image')
                     ->label('Gambar')
-                    ->size(80),
+                    ->disk('public')
+                    ->visibility('public')
+                    ->size(80)
+                    ->defaultImageUrl(url('/img/Logo-Pramuka.jpeg')),
                 \Filament\Tables\Columns\TextColumn::make('title')
                     ->label('Judul')
                     ->searchable(),

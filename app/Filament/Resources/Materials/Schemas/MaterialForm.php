@@ -93,16 +93,20 @@ class MaterialForm
                 FileUpload::make('image')
                     ->label('Gambar Utama')
                     ->image()
+                    ->disk('public')
                     ->maxSize(2048)
                     ->directory('materials/images')
+                    ->visibility('public')
                     ->imageEditor()
                     ->helperText('Maksimal 2MB'),
                 
                 FileUpload::make('file_attachment')
                     ->label('File Lampiran (PDF/DOC)')
                     ->acceptedFileTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])
+                    ->disk('public')
                     ->maxSize(5120)
                     ->directory('materials/files')
+                    ->visibility('public')
                     ->helperText('Maksimal 5MB - Format: PDF, DOC, DOCX'),
                 
                 DateTimePicker::make('published_at')

@@ -29,6 +29,8 @@ class SlidersTable
                     ->color('primary'),
                 ImageColumn::make('image')
                     ->label('Gambar')
+                    ->disk('public')
+                    ->visibility('public')
                     ->square()
                     ->size(80),
                 TextColumn::make('title')

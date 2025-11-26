@@ -1,6 +1,10 @@
 @extends('layouts.main')
 
-@section('title', $news->title . ' - Pramuka DIY')
+@php
+    use Illuminate\Support\Facades\Storage;
+@endphp
+
+@section('title', $news->title . ' - Pramuka UIN Sultanah Nahrasiyah')
 
 @section('main-content')
     <div class="container mx-auto px-4 py-6">
@@ -10,7 +14,7 @@
                 <article class="bg-white rounded-lg shadow-lg overflow-hidden">
                     {{-- Featured Image --}}
                     <div class="relative h-96 overflow-hidden">
-                        <img src="{{ $news->image ?? 'https://via.placeholder.com/1200x600?text=Pramuka+DIY' }}" alt="{{ $news->title }}" class="w-full h-full object-cover">
+                        <img src="{{ $news->image ? Storage::url($news->image) : 'https://via.placeholder.com/1200x600?text=Pramuka+UIN' }}" alt="{{ $news->title }}" class="w-full h-full object-cover">
                         <div class="absolute top-4 left-4">
                             <span class="bg-blue-600 text-white px-4 py-2 rounded-lg font-bold">{{ $news->category ?? 'BERITA' }}</span>
                         </div>
@@ -98,7 +102,7 @@
                             @foreach($relatedNews as $related)
                                 <a href="/news/{{ $related->slug }}" class="bg-white rounded-lg shadow hover:shadow-xl transition overflow-hidden group">
                                     <div class="relative overflow-hidden h-40">
-                                        <img src="{{ $related->image ?? 'https://via.placeholder.com/400x300?text=Pramuka+DIY' }}" alt="{{ $related->title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                                        <img src="{{ $related->image ? Storage::url($related->image) : 'https://via.placeholder.com/400x300?text=Pramuka+UIN' }}" alt="{{ $related->title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
                                     </div>
                                     <div class="p-4">
                                         <h3 class="font-bold text-sm mb-2 line-clamp-2 group-hover:text-blue-600">{{ $related->title }}</h3>
@@ -124,7 +128,7 @@
                             <li class="border-b pb-3 last:border-0">
                                 <a href="/news/{{ $latest->slug }}" class="group">
                                     <div class="flex gap-3">
-                                        <img src="{{ $latest->image ?? 'https://via.placeholder.com/100x100?text=News' }}" alt="{{ $latest->title }}" class="w-20 h-20 object-cover rounded">
+                                        <img src="{{ $latest->image ? Storage::url($latest->image) : 'https://via.placeholder.com/100x100?text=News' }}" alt="{{ $latest->title }}" class="w-20 h-20 object-cover rounded">
                                         <div class="flex-1">
                                             <h5 class="font-semibold text-sm line-clamp-2 group-hover:text-blue-600 mb-1">{{ $latest->title }}</h5>
                                             <span class="text-xs text-gray-500">{{ $latest->published_at->format('d M Y') }}</span>

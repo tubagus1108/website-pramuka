@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@php
+    use Illuminate\Support\Facades\Storage;
+@endphp
+
 @section('main-content')
     {{-- HERO SLIDER --}}
     <div class="container mx-auto px-4 py-4 md:py-6">
@@ -7,7 +11,7 @@
             @if(isset($sliders) && count($sliders) > 0)
                 @foreach($sliders as $index => $slider)
                     <div class="slider-item absolute inset-0 transition-opacity duration-1000 {{ $index === 0 ? 'opacity-100' : 'opacity-0' }}" data-slide="{{ $index }}">
-                        <img src="{{ $slider->image ?? 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=400&fit=crop' }}" 
+                        <img src="{{ $slider->image ? Storage::url($slider->image) : 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=400&fit=crop' }}" 
                              alt="{{ $slider->title }}" 
                              class="w-full h-full object-cover"
                              onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=400&fit=crop'">
@@ -39,8 +43,8 @@
             @else
                 <div class="absolute inset-0 bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700 flex items-center justify-center">
                     <div class="text-center text-white px-4">
-                        <h2 class="text-2xl md:text-4xl font-bold mb-2 md:mb-4">Selamat Datang di Pramuka DIY</h2>
-                        <p class="text-base md:text-xl">Kwartir Daerah Gerakan Pramuka Daerah Istimewa Yogyakarta</p>
+                        <h2 class="text-2xl md:text-4xl font-bold mb-2 md:mb-4">Selamat Datang di Pramuka UIN Sultanah Nahrasiyah</h2>
+                        <p class="text-base md:text-xl">Racana Gerakan Pramuka Perguruan Tinggi</p>
                     </div>
                 </div>
             @endif
@@ -76,6 +80,32 @@
         if (slides.length > 1) {
             setInterval(nextSlide, 5000);
         }
+
+        // Filter news by category
+        function filterNews(category) {
+            const newsCards = document.querySelectorAll('.news-card');
+            const newsTabs = document.querySelectorAll('.news-tab');
+            
+            // Update active tab
+            newsTabs.forEach(tab => {
+                if (tab.dataset.category === category) {
+                    tab.classList.remove('text-gray-600');
+                    tab.classList.add('border-b-2', 'border-blue-600', 'text-blue-600');
+                } else {
+                    tab.classList.remove('border-b-2', 'border-blue-600', 'text-blue-600');
+                    tab.classList.add('text-gray-600');
+                }
+            });
+            
+            // Filter cards
+            newsCards.forEach(card => {
+                if (card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
     </script>
 
     {{-- MAIN CONTENT GRID --}}
@@ -88,7 +118,7 @@
                     <span class="bg-white text-orange-600 px-2 md:px-3 py-1 rounded font-bold text-xs md:text-sm whitespace-nowrap">NEWSFLASH</span>
                     <div class="overflow-hidden flex-1">
                         <div class="animate-marquee whitespace-nowrap text-xs md:text-sm">
-                            Selamat Datang di Website Resmi Pramuka DIY - Ikuti terus informasi dan kegiatan terbaru kami!
+                            Selamat Datang di Website Resmi Pramuka UIN Sultanah Nahrasiyah - Ikuti terus informasi dan kegiatan terbaru kami!
                         </div>
                     </div>
                 </div>
@@ -96,17 +126,17 @@
                 {{-- NEWS CATEGORIES TABS --}}
                 <div>
                     <div class="flex gap-1 md:gap-2 mb-3 md:mb-4 border-b border-gray-200 overflow-x-auto">
-                        <button class="px-3 md:px-4 py-2 font-semibold border-b-2 border-blue-600 text-blue-600 whitespace-nowrap text-sm md:text-base">BERITA</button>
-                        <button class="px-3 md:px-4 py-2 font-semibold text-gray-600 hover:text-blue-600 whitespace-nowrap text-sm md:text-base">ARTIKEL</button>
-                        <button class="px-3 md:px-4 py-2 font-semibold text-gray-600 hover:text-blue-600 whitespace-nowrap text-sm md:text-base">KEGIATAN</button>
+                        <button onclick="filterNews('BERITA')" class="news-tab px-3 md:px-4 py-2 font-semibold border-b-2 border-blue-600 text-blue-600 whitespace-nowrap text-sm md:text-base" data-category="BERITA">BERITA</button>
+                        <button onclick="filterNews('ARTIKEL')" class="news-tab px-3 md:px-4 py-2 font-semibold text-gray-600 hover:text-blue-600 whitespace-nowrap text-sm md:text-base" data-category="ARTIKEL">ARTIKEL</button>
+                        <button onclick="filterNews('KEGIATAN')" class="news-tab px-3 md:px-4 py-2 font-semibold text-gray-600 hover:text-blue-600 whitespace-nowrap text-sm md:text-base" data-category="KEGIATAN">KEGIATAN</button>
                     </div>
 
                     {{-- NEWS GRID --}}
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4" id="newsGrid">
                         @forelse($news ?? [] as $item)
-                            <a href="/news/{{ $item->slug }}" class="bg-white rounded-lg shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden group transform hover:-translate-y-1">
+                            <a href="/news/{{ $item->slug }}" class="news-card bg-white rounded-lg shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden group transform hover:-translate-y-1" data-category="{{ $item->category ?? 'BERITA' }}">
                                 <div class="relative overflow-hidden h-40 md:h-48 bg-gray-100">
-                                    <img src="{{ $item->image ?? 'https://via.placeholder.com/400x300/1e40af/ffffff?text=Pramuka+DIY' }}" 
+                                    <img src="{{ $item->image ? Storage::url($item->image) : 'https://via.placeholder.com/400x300/1e40af/ffffff?text=Pramuka+UIN' }}" 
                                          alt="{{ $item->title }}" 
                                          class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                                          onerror="this.src='https://via.placeholder.com/400x300/1e40af/ffffff?text=Pramuka+DIY'">

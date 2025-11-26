@@ -7,18 +7,12 @@
             <div class="flex items-center gap-2 md:gap-3 mb-2 md:mb-0">
                 <img src="/img/Logo-Pramuka.jpeg" alt="Logo Pramuka" class="h-12 md:h-16 w-auto drop-shadow-lg rounded">
                 <div>
-                    <h1 class="font-bold text-lg md:text-xl text-white drop-shadow">PRAMUKADIY</h1>
-                    <p class="text-xs text-yellow-200">Kwartir Daerah DIY</p>
+                    <h1 class="font-bold text-lg md:text-xl text-white drop-shadow">PRAMUKA UIN</h1>
+                    <p class="text-xs text-yellow-200">Sultanah Nahrasiyah</p>
                 </div>
             </div>
             <div class="flex items-center gap-2 md:gap-4">
-                <div class="bg-gradient-to-r from-green-500 to-green-600 text-white px-3 md:px-4 py-1 md:py-2 rounded-lg text-center shadow-md transform hover:scale-105 transition">
-                    <span class="block text-xs md:text-sm font-bold">Selamat Bertugas</span>
-                </div>
-                <div class="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-3 md:px-4 py-1 md:py-2 rounded-lg text-center shadow-md transform hover:scale-105 transition">
-                    <span class="block text-xs md:text-sm font-bold">Kak GKR Hayu</span>
-                </div>
-                <img src="/img/Logo-Pramuka.jpeg" alt="Logo DIY" class="h-12 md:h-16 w-auto drop-shadow-lg hidden sm:block rounded">
+                <img src="/img/Logo-Pramuka.jpeg" alt="Logo UIN" class="h-12 md:h-16 w-auto drop-shadow-lg hidden sm:block rounded">
             </div>
         </div>
     </div>
@@ -32,8 +26,8 @@
             ['url' => '/agenda', 'label' => 'AGENDA'],
             ['url' => '/news', 'label' => 'BERITA'],
             ['url' => '/materials', 'label' => 'MATERI'],
-            ['url' => '#', 'label' => 'DOKUMEN'],
-            ['url' => '#', 'label' => 'GALERI'],
+            // ['url' => '#', 'label' => 'DOKUMEN'],
+            // ['url' => '#', 'label' => 'GALERI'],
         ];
         $profileMenus = \App\Models\ProfileMenu::where('is_active', true)->get();
         $organizationMenus = \App\Models\OrganizationMenu::where('is_active', true)->get();
@@ -52,22 +46,22 @@
                 <div class="flex items-start gap-3 md:gap-4">
                     <img src="/img/Logo-Pramuka.jpeg" alt="Logo" class="h-16 md:h-20 w-auto drop-shadow-lg rounded">
                     <div>
-                        <h3 class="font-bold text-base md:text-lg mb-2 text-yellow-400">YOGYAKARTA</h3>
+                        <h3 class="font-bold text-base md:text-lg mb-2 text-yellow-400">PRAMUKA UIN</h3>
                         <p class="text-xs leading-relaxed">
-                            Kwartir Daerah<br>
+                            Racana<br>
                             Gerakan Pramuka<br>
-                            Daerah Istimewa Yogyakarta
+                            UIN Sultanah Nahrasiyah
                         </p>
                     </div>
                 </div>
                 <div>
                     <h4 class="font-bold mb-3 text-yellow-400 text-sm md:text-base">Sekretariat</h4>
                     <p class="text-xs md:text-sm leading-relaxed">
-                        Gedung Dinas Pariwisata DIY<br>
-                        Jl. Cendana No. 11, Semaki<br>
-                        Umbulharjo, Yogyakarta 55166<br>
-                        <span class="text-yellow-200">Telp: (0274) 562391</span><br>
-                        <span class="text-yellow-200">Email: kwarda@pramukadiy.or.id</span>
+                        Kampus UIN Sultanah Nahrasiyah<br>
+                        Jl. Syech Abdurrauf, Medan Mawang<br>
+                        Samudera, Lhokseumawe, Aceh 24355<br>
+                        <span class="text-yellow-200">Telp: (0645) 44373</span><br>
+                        <span class="text-yellow-200">Email: pramuka@uinsu.ac.id</span>
                     </p>
                 </div>
                 <div>
@@ -89,7 +83,7 @@
                 </div>
             </div>
             <div class="border-t border-blue-700 mt-4 md:mt-6 pt-4 md:pt-6 text-center text-xs md:text-sm">
-                &copy; {{ date('Y') }} Kwartir Daerah Gerakan Pramuka DIY. All rights reserved.
+                &copy; {{ date('Y') }} Racana Gerakan Pramuka UIN Sultanah Nahrasiyah. All rights reserved.
             </div>
         </div>
     </footer>

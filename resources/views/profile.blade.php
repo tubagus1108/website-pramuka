@@ -27,8 +27,8 @@
                     <i class="fas fa-user-circle text-4xl md:text-5xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-2xl md:text-4xl font-bold mb-2">Profil Pramuka DIY</h1>
-                    <p class="text-sm md:text-base text-blue-100">Kwartir Daerah Gerakan Pramuka Daerah Istimewa Yogyakarta</p>
+                    <h1 class="text-2xl md:text-4xl font-bold mb-2">Profil Pramuka UIN Sultanah Nahrasiyah</h1>
+                    <p class="text-sm md:text-base text-blue-100">Racana Gerakan Pramuka Perguruan Tinggi</p>
                 </div>
             </div>
         </div>

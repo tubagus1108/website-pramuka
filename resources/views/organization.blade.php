@@ -27,8 +27,8 @@
                     <i class="fas fa-sitemap text-4xl md:text-5xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-2xl md:text-4xl font-bold mb-2">Organisasi Pramuka DIY</h1>
-                    <p class="text-sm md:text-base text-orange-100">Struktur dan Unit Organisasi Kwartir Daerah</p>
+                    <h1 class="text-2xl md:text-4xl font-bold mb-2">Organisasi Pramuka UIN Sultanah Nahrasiyah</h1>
+                    <p class="text-sm md:text-base text-orange-100">Struktur dan Unit Organisasi Racana</p>
                 </div>
             </div>
         </div>
@@ -76,7 +76,7 @@
                         </h2>
                         <div class="prose prose-sm md:prose-base max-w-none">
                             <p class="text-gray-700 leading-relaxed mb-4">
-                                Halaman Organisasi Kwartir Daerah Gerakan Pramuka DIY memberikan informasi lengkap tentang struktur organisasi, unit-unit kerja, dan berbagai satuan yang ada di bawah naungan Kwartir Daerah.
+                                Halaman Organisasi Racana Gerakan Pramuka UIN Sultanah Nahrasiyah memberikan informasi lengkap tentang struktur organisasi, unit-unit kerja, dan berbagai satuan yang ada di bawah naungan Racana.
                             </p>
                             <p class="text-gray-700 leading-relaxed mb-4">
                                 Silakan pilih menu di samping untuk melihat informasi detail mengenai masing-masing unit organisasi.

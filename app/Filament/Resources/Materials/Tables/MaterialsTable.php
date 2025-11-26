@@ -20,6 +20,8 @@ class MaterialsTable
             ->columns([
                 ImageColumn::make('image')
                     ->label('Gambar')
+                    ->disk('public')
+                    ->visibility('public')
                     ->circular()
                     ->defaultImageUrl(url('/img/Logo-Pramuka.jpeg')),
                 
