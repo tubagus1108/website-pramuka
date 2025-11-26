@@ -76,10 +76,10 @@
                         </h2>
                         <div class="prose prose-sm md:prose-base max-w-none">
                             <p class="text-gray-700 leading-relaxed mb-4">
-                                Kwartir Daerah Gerakan Pramuka Daerah Istimewa Yogyakarta merupakan organisasi kepramukaan tingkat daerah yang bertugas membina dan mengembangkan Gerakan Pramuka di wilayah Daerah Istimewa Yogyakarta.
+                                Racana Gerakan Pramuka UIN Sultanah Nahrasiyah merupakan organisasi kepramukaan tingkat perguruan tinggi yang bertugas membina dan mengembangkan Gerakan Pramuka di wilayah Lhokseumawe, Aceh.
                             </p>
                             <p class="text-gray-700 leading-relaxed mb-4">
-                                Silakan pilih menu di samping untuk melihat informasi lebih detail mengenai profil Pramuka DIY.
+                                Silakan pilih menu di samping untuk melihat informasi lebih detail mengenai profil Pramuka UIN Sultanah Nahrasiyah.
                             </p>
                         </div>
                     </div>
@@ -138,9 +138,9 @@
                     {{-- FEATURED IMAGE --}}
                     <div class="mt-8">
                         <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=400&fit=crop" 
-                             alt="Pramuka DIY" 
+                             alt="Pramuka UIN SN" 
                              class="w-full h-48 md:h-64 object-cover rounded-lg shadow-md"
-                             onerror="this.src='https://via.placeholder.com/800x400/1e40af/ffffff?text=Pramuka+DIY'">
+                             onerror="this.src='https://via.placeholder.com/800x400/1e40af/ffffff?text=Pramuka+UIN+SN'">
                     </div>
                 </div>
             </div>

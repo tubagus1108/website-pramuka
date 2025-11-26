@@ -26,6 +26,9 @@
             ['url' => '/agenda', 'label' => 'AGENDA'],
             ['url' => '/news', 'label' => 'BERITA'],
             ['url' => '/materials', 'label' => 'MATERI'],
+            ['url' => '/buletin', 'label' => 'BULETIN'],
+            ['url' => '/pesan-buper', 'label' => 'PESAN BUPER'],
+            ['url' => '/kirim-berita', 'label' => 'KIRIM BERITA'],
             // ['url' => '#', 'label' => 'DOKUMEN'],
             // ['url' => '#', 'label' => 'GALERI'],
         ];

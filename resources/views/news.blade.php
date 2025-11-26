@@ -148,9 +148,9 @@
                                     <img src="{{ Storage::url($item->image) }}" 
                                          alt="{{ $item->title }}" 
                                          class="w-full h-full object-cover group-hover:scale-110 transition duration-300"
-                                         onerror="this.src='https://via.placeholder.com/600x400/1e40af/ffffff?text=Pramuka+DIY'">
+                                         onerror="this.src='https://via.placeholder.com/600x400/1e40af/ffffff?text=Pramuka+UIN+SN'">
                                 @else
-                                    <img src="https://via.placeholder.com/600x400/1e40af/ffffff?text=Pramuka+DIY" 
+                                    <img src="https://via.placeholder.com/600x400/1e40af/ffffff?text=Pramuka+UIN+SN" 
                                          alt="{{ $item->title }}" 
                                          class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
                                 @endif

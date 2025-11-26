@@ -34,7 +34,7 @@
                 </div>
                 <div>
                     <h1 class="text-2xl md:text-4xl font-bold mb-2">{{ $menu->title }}</h1>
-                    <p class="text-sm md:text-base text-orange-100">Organisasi Pramuka DIY</p>
+                    <p class="text-sm md:text-base text-orange-100">Organisasi Pramuka UIN Sultanah Nahrasiyah</p>
                 </div>
             </div>
         </div>

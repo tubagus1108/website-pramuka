@@ -139,7 +139,7 @@
                                     <img src="{{ $item->image ? Storage::url($item->image) : 'https://via.placeholder.com/400x300/1e40af/ffffff?text=Pramuka+UIN' }}" 
                                          alt="{{ $item->title }}" 
                                          class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                                         onerror="this.src='https://via.placeholder.com/400x300/1e40af/ffffff?text=Pramuka+DIY'">
+                                         onerror="this.src='https://via.placeholder.com/400x300/1e40af/ffffff?text=Pramuka+UIN+SN'">
                                     <div class="absolute top-2 md:top-3 left-2 md:left-3">
                                         <span class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-2 md:px-3 py-1 rounded-md text-xs font-bold shadow-lg">
                                             {{ $item->category ?? 'BERITA' }}

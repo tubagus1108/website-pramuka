@@ -138,9 +138,9 @@
                     {{-- FEATURED IMAGE --}}
                     <div class="mt-8">
                         <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=400&fit=crop" 
-                             alt="Organisasi Pramuka DIY" 
+                             alt="Organisasi Pramuka UIN SN" 
                              class="w-full h-48 md:h-64 object-cover rounded-lg shadow-md"
-                             onerror="this.src='https://via.placeholder.com/800x400/ea580c/ffffff?text=Organisasi+Pramuka+DIY'">
+                             onerror="this.src='https://via.placeholder.com/800x400/ea580c/ffffff?text=Organisasi+Pramuka+UIN+SN'">
                     </div>
                 </div>
             </div>
