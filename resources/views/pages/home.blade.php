@@ -15,7 +15,7 @@
                              alt="{{ $slider->title }}" 
                              width="1200"
                              height="400"
-                             {{ $index === 0 ? 'fetchpriority=high' : 'loading=lazy' }}
+                             {!! $index === 0 ? 'fetchpriority="high"' : 'loading="lazy"' !!}
                              class="w-full h-full object-cover"
                              onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=400&fit=crop&q=80'">
                         <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-800/60 to-transparent flex items-center">

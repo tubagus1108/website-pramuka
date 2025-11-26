@@ -30,8 +30,9 @@
     
     <title>@yield('title', 'Pramuka UIN Sultanah Nahrasiyah - Racana Gerakan Pramuka')</title>
     
-    {{-- Vite CSS - Critical path --}}
-    @vite(['resources/css/app.css'])
+    {{-- Vite CSS - Preload THEN load (non-blocking!) --}}
+    <link rel="preload" as="style" href="{{ Vite::asset('resources/css/app.css') }}" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ Vite::asset('resources/css/app.css') }}"></noscript>
     
     {{-- Vite JS - Deferred --}}
     <script type="module" src="{{ Vite::asset('resources/js/app.js') }}" defer></script>
