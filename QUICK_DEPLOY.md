@@ -1,4 +1,4 @@
-# 🚀 Quick Performance Deployment Guide
+# 🚀 Quick Performance Deployment Guide (Nginx)
 
 ## Server Deployment Commands
 
@@ -15,15 +15,10 @@ npm install --production
 npm run build
 
 # 4. Clear all caches
-php artisan config:clear
-php artisan cache:clear
-php artisan route:clear
-php artisan view:clear
+php artisan optimize:clear
 
 # 5. Optimize for production
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
+php artisan optimize
 
 # 6. Generate sitemap
 php artisan sitemap:generate
@@ -33,9 +28,11 @@ sudo chown -R www-data:www-data storage bootstrap/cache public
 sudo chmod -R 775 storage bootstrap/cache
 sudo chmod -R 755 public
 
-# 8. Enable Apache modules
-sudo a2enmod deflate expires headers rewrite
-sudo systemctl restart apache2
+# 8. Configure Nginx (first time only)
+sudo cp nginx.conf /etc/nginx/sites-available/website-pramuka
+sudo ln -s /etc/nginx/sites-available/website-pramuka /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
 ```
 
 ## 📊 Verify Optimizations
@@ -196,22 +193,43 @@ php artisan view:clear
 
 ### Issue: Gzip not working
 ```bash
-# Check if mod_deflate enabled
-apache2ctl -M | grep deflate
+# Check Nginx gzip configuration
+sudo nginx -T | grep gzip
 
-# Enable if missing
-sudo a2enmod deflate
-sudo systemctl restart apache2
+# Reload Nginx
+sudo systemctl reload nginx
 ```
 
 ### Issue: Cache headers not set
 ```bash
-# Check if mod_expires and mod_headers enabled
-apache2ctl -M | grep -E "(expires|headers)"
+# Test cache headers
+curl -I https://your-domain.com/build/assets/app-*.css
 
-# Enable if missing
-sudo a2enmod expires headers
-sudo systemctl restart apache2
+# Check Nginx config
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+### Issue: 502 Bad Gateway
+```bash
+# Check PHP-FPM status
+sudo systemctl status php8.2-fpm
+
+# Restart PHP-FPM
+sudo systemctl restart php8.2-fpm
+
+# Check PHP-FPM socket
+ls -la /var/run/php/php8.2-fpm.sock
+```
+
+### Issue: Permissions denied
+```bash
+# Fix ownership
+sudo chown -R www-data:www-data /var/www/website-pramuka
+
+# Fix permissions
+sudo find /var/www/website-pramuka/storage -type d -exec chmod 775 {} \;
+sudo find /var/www/website-pramuka/storage -type f -exec chmod 664 {} \;
 ```
 
 ## 📈 Monitoring

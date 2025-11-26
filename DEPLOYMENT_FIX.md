@@ -346,27 +346,26 @@ composer install --optimize-autoloader --no-dev
 # 3. Run migrations (if any)
 php artisan migrate --force
 
-# 4. Clear caches
-php artisan config:clear
-php artisan cache:clear
-php artisan route:clear
-php artisan view:clear
+# 4. Clear & optimize caches
+php artisan optimize:clear
+php artisan optimize
 
-# 5. Optimize
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-
-# 6. Generate sitemap
+# 5. Generate sitemap
 php artisan sitemap:generate
 
-# 7. Build frontend assets (if changed)
+# 6. Build frontend assets (if changed)
 npm install --production
 npm run build
 
-# 8. Set permissions
+# 7. Set permissions
 sudo chown -R www-data:www-data storage bootstrap/cache public
 sudo chmod -R 775 storage bootstrap/cache
+
+# 8. Reload web server
+# For Nginx:
+sudo systemctl reload nginx
+# For Apache:
+# sudo systemctl reload apache2
 ```
 
 ---

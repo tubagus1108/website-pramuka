@@ -24,7 +24,13 @@
     RewriteRule ^ index.php [L]
 </IfModule>
 
-# PERFORMANCE OPTIMIZATION
+# =====================================================
+# NOTE: This .htaccess is for Apache only
+# For Nginx, use nginx.conf instead
+# Performance optimizations are in nginx.conf
+# =====================================================
+
+# PERFORMANCE OPTIMIZATION (Apache Only)
 
 # Compression
 <IfModule mod_deflate.c>
