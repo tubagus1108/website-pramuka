@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+    {{-- Pass hero image to parent layout for preloading --}}
+    @if(isset($heroImage))
+        @php
+            View::share('heroImage', $heroImage);
+        @endphp
+    @endif
+    
     @include('layouts.partials.header')
 
     {{-- NAVBAR --}}

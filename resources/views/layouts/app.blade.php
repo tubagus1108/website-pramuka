@@ -5,11 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#1e40af">
     
+    {{-- Critical inline CSS for immediate render --}}
+    <style>
+        body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;background:linear-gradient(to bottom right,#f9fafb,#dbeafe,#fef3c7);min-height:100vh}
+        #heroSlider{position:relative;overflow:hidden;border-radius:0.75rem;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);height:300px}
+        #heroSlider img{width:100%;height:100%;object-fit:cover}
+        .container{width:100%;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem}
+        @media (min-width:640px){.container{max-width:640px}}
+        @media (min-width:768px){.container{max-width:768px}}
+        @media (min-width:1024px){.container{max-width:1024px}}
+        @media (min-width:1280px){.container{max-width:1280px}}
+    </style>
+    
     {{-- DNS Prefetch & Preconnect --}}
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
     <link rel="dns-prefetch" href="https://images.unsplash.com">
     <link rel="dns-prefetch" href="https://via.placeholder.com">
+    
+    {{-- Preload LCP image (hero) --}}
+    @if(isset($heroImage))
+        <link rel="preload" as="image" href="{{ $heroImage }}" fetchpriority="high">
+    @endif
     
     <title>@yield('title', 'Pramuka UIN Sultanah Nahrasiyah - Racana Gerakan Pramuka')</title>
     
