@@ -1,0 +1,62 @@
+name: Deploy to Development
+
+on:
+  push:
+    branches:
+      - dev
+      - develop
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy to Development
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: 🐘 Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, xml, intl, curl, bcmath, zip
+
+      - name: 📚 Composer install
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: 🔨 Build assets
+        run: |
+          npm ci
+          npm run build
+
+      - name: 🚀 Deploy to Dev Server via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 22
+          script: |
+            cd /var/www/website-pramuka
+            git pull origin dev
+            composer install --no-interaction --prefer-dist --optimize-autoloader
+            npm ci
+            npm run build
+            php artisan migrate --force
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan sitemap:generate || echo "⚠️ Sitemap generation skipped"
+            systemctl restart php8.2-fpm
+            systemctl reload nginx
+            echo "✅ Development deployment successful!"
+
+      - name: 🎉 Deployment Success
+        if: success()
+        run: echo "✅ Development deployed successfully!"

@@ -2,23 +2,23 @@
 <html lang="id">
 <head>
     @include('layouts.partials.meta')
-    
+
     <title>@yield('title', 'Pramuka UIN Sultanah Nahrasiyah - Racana Gerakan Pramuka')</title>
-    
+
     <!-- Preload Font Awesome CSS for faster loading -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style">
-    
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+
     <!-- Load Font Awesome async with font-display swap -->
-    <link rel="stylesheet" 
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
-          media="print" 
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          media="print"
           onload="this.media='all'; this.onload=null;">
     <noscript>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     </noscript>
-    
+
     <!-- Inline critical CSS for above-the-fold -->
     <style>
         /* Critical CSS for initial render */

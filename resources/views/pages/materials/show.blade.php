@@ -49,13 +49,13 @@
                                 {{ $material->views }} views
                             </span>
                         </div>
-                        
+
                         <h1 class="text-2xl md:text-3xl font-bold mb-3">{{ $material->title }}</h1>
-                        
+
                         @if($material->description)
                             <p class="text-purple-100 text-sm md:text-base">{{ $material->description }}</p>
                         @endif
-                        
+
                         <div class="flex flex-wrap gap-3 text-sm mt-4">
                             @if($material->author)
                                 <span class="flex items-center gap-2">
@@ -85,7 +85,7 @@
                                             <p class="text-sm text-gray-600">Download file untuk pembelajaran offline</p>
                                         </div>
                                     </div>
-                                    <a href="{{ Storage::url($material->file_attachment) }}" 
+                                    <a href="{{ Storage::url($material->file_attachment) }}"
                                        download
                                        class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition font-semibold text-sm flex items-center gap-2">
                                         <i class="fas fa-download"></i>
@@ -109,7 +109,7 @@
                                 </h4>
                                 <div class="flex flex-wrap gap-2">
                                     @foreach(explode(',', $material->tags) as $tag)
-                                        <a href="/materials?tag={{ trim($tag) }}" 
+                                        <a href="/materials?tag={{ trim($tag) }}"
                                            class="inline-block bg-purple-100 text-purple-700 px-3 py-1.5 rounded-lg hover:bg-purple-200 transition text-sm font-semibold">
                                             #{{ trim($tag) }}
                                         </a>
@@ -125,22 +125,22 @@
                                 Bagikan Materi Ini:
                             </h4>
                             <div class="flex flex-wrap gap-2">
-                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}" 
-                                   target="_blank" 
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}"
+                                   target="_blank"
                                    aria-label="Bagikan ke Facebook"
                                    class="flex items-center gap-2 bg-blue-600 text-white px-3 md:px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm">
                                     <i class="fab fa-facebook-f" aria-hidden="true"></i>
                                     <span class="hidden sm:inline">Facebook</span>
                                 </a>
-                                <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($material->title) }}" 
-                                   target="_blank" 
+                                <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($material->title) }}"
+                                   target="_blank"
                                    aria-label="Bagikan ke Twitter"
                                    class="flex items-center gap-2 bg-sky-500 text-white px-3 md:px-4 py-2 rounded-lg hover:bg-sky-600 transition text-sm">
                                     <i class="fab fa-twitter" aria-hidden="true"></i>
                                     <span class="hidden sm:inline">Twitter</span>
                                 </a>
-                                <a href="https://wa.me/?text={{ urlencode($material->title . ' ' . request()->url()) }}" 
-                                   target="_blank" 
+                                <a href="https://wa.me/?text={{ urlencode($material->title . ' ' . request()->url()) }}"
+                                   target="_blank"
                                    class="flex items-center gap-2 bg-green-600 text-white px-3 md:px-4 py-2 rounded-lg hover:bg-green-700 transition text-sm">
                                     <i class="fab fa-whatsapp"></i>
                                     <span class="hidden sm:inline">WhatsApp</span>
@@ -165,7 +165,7 @@
                             <i class="fas fa-book text-purple-600"></i>
                             Materi Terkait ({{ $material->category }})
                         </h3>
-                        
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             @foreach($relatedMaterials as $related)
                                 <a href="/materials/{{ $related->slug }}" class="block border border-gray-200 rounded-lg p-4 hover:border-purple-500 hover:shadow-md transition">
@@ -196,7 +196,7 @@
                             <i class="fas fa-fire text-orange-500"></i>
                             Materi Populer
                         </h3>
-                        
+
                         <div class="space-y-3">
                             @foreach($popularMaterials as $popular)
                                 <a href="/materials/{{ $popular->slug }}" class="block group">

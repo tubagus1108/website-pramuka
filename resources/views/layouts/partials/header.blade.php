@@ -2,8 +2,8 @@
 <div class="bg-gradient-to-r from-blue-800 via-blue-700 to-blue-900 border-b-4 border-yellow-400 shadow-lg">
     <div class="container mx-auto flex flex-col md:flex-row items-center justify-between py-2 md:py-3 px-4">
         <div class="flex items-center gap-2 md:gap-3 mb-2 md:mb-0">
-            <img src="/img/Logo-Pramuka-small.jpeg" 
-                 alt="Logo Pramuka UIN Sultanah Nahrasiyah" 
+            <img src="/img/Logo-Pramuka-small.jpeg"
+                 alt="Logo Pramuka UIN Sultanah Nahrasiyah"
                  class="h-12 md:h-16 w-auto drop-shadow-lg rounded"
                  width="64"
                  height="64"
@@ -16,8 +16,8 @@
             </div>
         </div>
         <div class="flex items-center gap-2 md:gap-4">
-            <img src="/img/Logo-Pramuka-small.jpeg" 
-                 alt="Logo UIN Sultanah Nahrasiyah" 
+            <img src="/img/Logo-Pramuka-small.jpeg"
+                 alt="Logo UIN Sultanah Nahrasiyah"
                  class="h-12 md:h-16 w-auto drop-shadow-lg hidden sm:block rounded"
                  width="64"
                  height="64"
