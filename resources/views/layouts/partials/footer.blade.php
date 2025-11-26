@@ -32,16 +32,16 @@
             <div>
                 <h4 class="font-bold mb-3 text-yellow-400 text-sm md:text-base">Ikuti Kami</h4>
                 <div class="flex gap-2 md:gap-3 mb-4">
-                    <a href="#" aria-label="Ikuti kami di Facebook" class="w-9 h-9 md:w-10 md:h-10 bg-white text-blue-900 rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
+                    <a href="#" aria-label="Ikuti kami di Facebook" class="w-9 h-9 md:w-10 md:h-10 bg-blue-900 text-white rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
                         <i class="fab fa-facebook-f text-sm md:text-base" aria-hidden="true"></i>
                     </a>
-                    <a href="#" aria-label="Ikuti kami di Twitter" class="w-9 h-9 md:w-10 md:h-10 bg-white text-blue-900 rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
+                    <a href="#" aria-label="Ikuti kami di Twitter" class="w-9 h-9 md:w-10 md:h-10 bg-blue-900 text-white rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
                         <i class="fab fa-twitter text-sm md:text-base" aria-hidden="true"></i>
                     </a>
-                    <a href="#" aria-label="Ikuti kami di Instagram" class="w-9 h-9 md:w-10 md:h-10 bg-white text-blue-900 rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
+                    <a href="#" aria-label="Ikuti kami di Instagram" class="w-9 h-9 md:w-10 md:h-10 bg-blue-900 text-white rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
                         <i class="fab fa-instagram text-sm md:text-base" aria-hidden="true"></i>
                     </a>
-                    <a href="#" aria-label="Tonton kami di YouTube" class="w-9 h-9 md:w-10 md:h-10 bg-white text-blue-900 rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
+                    <a href="#" aria-label="Tonton kami di YouTube" class="w-9 h-9 md:w-10 md:h-10 bg-blue-900 text-white rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
                         <i class="fab fa-youtube text-sm md:text-base" aria-hidden="true"></i>
                     </a>
                 </div>
