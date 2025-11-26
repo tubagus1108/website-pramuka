@@ -11,7 +11,7 @@ class KirimBeritaController extends Controller
 {
     public function index()
     {
-        return view('kirim-berita');
+        return view('pages.kirim-berita.index');
     }
 
     public function store(Request $request)

@@ -17,6 +17,6 @@ class PesanBuperController extends Controller
             ->latest('published_at')
             ->first();
 
-        return view('pesan-buper', compact('pesanBupers', 'featuredPesan'));
+        return view('pages.pesan-buper.index', compact('pesanBupers', 'featuredPesan'));
     }
 }

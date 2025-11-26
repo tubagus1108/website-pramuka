@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\News;
 use App\Models\Agenda;
+use App\Models\News;
 use App\Models\Slider;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -36,6 +35,6 @@ class HomeController extends Controller
             ->take(10)
             ->values();
 
-        return view('home', compact('sliders', 'news', 'agendas', 'tags'));
+        return view('pages.home', compact('sliders', 'news', 'agendas', 'tags'));
     }
 }

@@ -13,6 +13,6 @@ class BuletinController extends Controller
             ->orderBy('month', 'desc')
             ->paginate(12);
 
-        return view('buletin', compact('buletins'));
+        return view('pages.buletin.index', compact('buletins'));
     }
 }
