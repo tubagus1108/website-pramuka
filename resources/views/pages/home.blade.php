@@ -11,8 +11,8 @@
             @if(isset($sliders) && count($sliders) > 0)
                 @foreach($sliders as $index => $slider)
                     <div class="slider-item absolute inset-0 transition-opacity duration-1000 {{ $index === 0 ? 'opacity-100' : 'opacity-0' }}" data-slide="{{ $index }}">
-                        <img src="{{ $slider->image ? Storage::url($slider->image) : 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=400&fit=crop' }}" 
-                             alt="{{ $slider->title }}" 
+                        <img src="{{ $slider->image ? Storage::url($slider->image) : 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=400&fit=crop' }}"
+                             alt="{{ $slider->title }}"
                              class="w-full h-full object-cover"
                              onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=400&fit=crop'">
                         <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-800/60 to-transparent flex items-center">
@@ -55,7 +55,7 @@
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slider-item');
         const dots = document.querySelectorAll('.slider-dot');
-        
+
         function goToSlide(index) {
             slides[currentSlide].classList.remove('opacity-100');
             slides[currentSlide].classList.add('opacity-0');
@@ -63,7 +63,7 @@
                 dots[currentSlide].classList.remove('bg-yellow-400', 'w-6', 'md:w-8');
                 dots[currentSlide].classList.add('bg-white/50');
             }
-            
+
             currentSlide = index;
             slides[currentSlide].classList.remove('opacity-0');
             slides[currentSlide].classList.add('opacity-100');
@@ -72,11 +72,11 @@
                 dots[currentSlide].classList.add('bg-yellow-400', 'w-6', 'md:w-8');
             }
         }
-        
+
         function nextSlide() {
             goToSlide((currentSlide + 1) % slides.length);
         }
-        
+
         if (slides.length > 1) {
             setInterval(nextSlide, 5000);
         }
@@ -85,7 +85,7 @@
         function filterNews(category) {
             const newsCards = document.querySelectorAll('.news-card');
             const newsTabs = document.querySelectorAll('.news-tab');
-            
+
             // Update active tab
             newsTabs.forEach(tab => {
                 if (tab.dataset.category === category) {
@@ -96,7 +96,7 @@
                     tab.classList.add('text-gray-600');
                 }
             });
-            
+
             // Filter cards
             newsCards.forEach(card => {
                 if (card.dataset.category === category) {
@@ -136,8 +136,8 @@
                         @forelse($news ?? [] as $item)
                             <a href="/news/{{ $item->slug }}" class="news-card bg-white rounded-lg shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden group transform hover:-translate-y-1" data-category="{{ $item->category ?? 'BERITA' }}">
                                 <div class="relative overflow-hidden h-40 md:h-48 bg-gray-100">
-                                    <img src="{{ $item->image ? Storage::url($item->image) : 'https://via.placeholder.com/400x300/1e40af/ffffff?text=Pramuka+UIN' }}" 
-                                         alt="{{ $item->title }}" 
+                                    <img src="{{ $item->image ? Storage::url($item->image) : 'https://via.placeholder.com/400x300/1e40af/ffffff?text=Pramuka+UIN' }}"
+                                         alt="{{ $item->title }}"
                                          class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                                          onerror="this.src='https://via.placeholder.com/400x300/1e40af/ffffff?text=Pramuka+UIN+SN'">
                                     <div class="absolute top-2 md:top-3 left-2 md:left-3">
@@ -228,7 +228,7 @@
                         Video Terbaru
                     </h4>
                     <div class="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg overflow-hidden shadow-inner">
-                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                        <iframe width="100%" height="100%" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
                     </div>
                 </div>
 
