@@ -30,12 +30,8 @@
     
     <title>@yield('title', 'Pramuka UIN Sultanah Nahrasiyah - Racana Gerakan Pramuka')</title>
     
-    {{-- Vite CSS - Preload THEN load (non-blocking!) --}}
-    <link rel="preload" as="style" href="{{ Vite::asset('resources/css/app.css') }}" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="{{ Vite::asset('resources/css/app.css') }}"></noscript>
-    
-    {{-- Vite JS - Deferred --}}
-    <script type="module" src="{{ Vite::asset('resources/js/app.js') }}" defer></script>
+    {{-- Vite Assets - Optimized loading --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     {{-- Font Awesome with async loading --}}
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
