@@ -38,7 +38,7 @@ echo ""
 echo "[3/8] Reinstalling Composer dependencies..."
 echo "⚠️  This will take 2-3 minutes..."
 rm -rf vendor/
-COMPOSER_ALLOW_SUPERUSER=1 composer install --optimize-autoloader --no-dev --no-interaction --quiet
+COMPOSER_ALLOW_SUPERUSER=1 composer install --no-interaction --prefer-dist --optimize-autoloader
 echo "✅ Composer dependencies reinstalled"
 echo ""
 
