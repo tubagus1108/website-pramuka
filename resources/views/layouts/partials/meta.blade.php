@@ -1,6 +1,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="{{ $description ?? 'Racana Gerakan Pramuka UIN Sultanah Nahrasiyah - Lhokseumawe, Aceh' }}">
+<meta name="description" content="Website resmi Pramuka UIN Suna - Informasi kegiatan kepramukaan, berita, dan dokumentasi Gerakan Pramuka di lingkungan UIN Suna.">
 <meta name="keywords" content="{{ $keywords ?? 'pramuka, uinsu, lhokseumawe, aceh, gerakan pramuka, racana' }}">
 <meta name="author" content="Pramuka UIN Sultanah Nahrasiyah">
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -19,3 +19,4 @@
 <meta property="twitter:description" content="{{ $description ?? 'Racana Gerakan Pramuka UIN Sultanah Nahrasiyah' }}">
 <meta property="twitter:image" content="{{ $image ?? asset('img/Logo-Pramuka.jpeg') }}">
 <meta name="google-site-verification" content="0c7zuBsd-yviYVne4OHk0-XLTHhgN0APvgV5ctONMJo" />
+

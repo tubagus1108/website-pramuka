@@ -159,7 +159,7 @@
                                             <span class="hidden sm:inline">{{ $item->published_at->format('d M Y') }}</span>
                                             <span class="sm:hidden">{{ $item->published_at->format('d/m/y') }}</span>
                                         </span>
-                                        <span class="flex items-center gap-1 text-orange-600">
+                                        <span class="flex items-center gap-1 text-orange-700">
                                             <i class="far fa-eye"></i>
                                             {{ rand(100, 999) }}
                                         </span>
