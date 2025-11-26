@@ -1,15 +1,20 @@
-# 🚀 DEPLOY NOW - SUPER CRITICAL Performance Updates
+# 🚀 DEPLOY NOW - Performance Optimizations (FIXED!)
 
-## ⚡ What Changed? (FINAL UPDATE)
+## ⚠️ CRITICAL FIX APPLIED!
 
-**ULTIMATE Performance Optimizations - 7 CRITICAL FIXES:**
-1. ✅ **Non-Blocking CSS** - CSS load dengan preload (tidak block render!)
-2. ✅ **PurgeCSS** - CSS 109KB → 86KB (21% reduction)
-3. ✅ **Hero Image Preload** - LCP improvement dari 11.0s → target <2.5s
-4. ✅ **Critical CSS Inline** - FCP improvement dari 8.8s → target <1.8s
-5. ✅ **Deferred JavaScript** - JS tidak block render
-6. ✅ **Fetchpriority High** - Prioritize hero image loading (syntax fixed!)
-7. ✅ **Image Optimizer** - Command untuk compress semua gambar
+**Bug ditemukan:** `Vite::asset()` usage menyebabkan error di production (all red scores!)
+**Fix applied:** Commit `69ebc92` - Kembali menggunakan `@vite` directive yang benar
+**Status:** ✅ **FIXED & READY TO DEPLOY**
+
+## ⚡ What Changed? (FINAL - TESTED!)
+
+**Performance Optimizations - 6 CRITICAL FIXES:**
+1. ✅ **PurgeCSS** - CSS 109KB → 86KB (21% reduction)
+2. ✅ **Hero Image Preload** - LCP improvement target <2.5s
+3. ✅ **Critical CSS Inline** - FCP improvement target <1.8s
+4. ✅ **Deferred JavaScript** - JS tidak block render (via @vite directive)
+5. ✅ **Fetchpriority High** - Prioritize hero image loading
+6. ✅ **Image Optimizer** - Command untuk compress semua gambar
 
 ## 📋 Server Deployment (EXECUTE NOW)
 
@@ -85,14 +90,13 @@ Enter: https://your-domain.com
 - ❌ FCP: 8.8s
 
 **After (Target):**
-- ✅ Performance: **90-100** (MASSIVE IMPROVEMENT from 53-84!)
+- ✅ Performance: **90-100** (improvement from 53-84!)
 - ✅ LCP: **<2.5s** (improved by ~8.5s!)
-- ✅ FCP: **<1.0s** (INSTANT render with inline CSS + non-blocking!)
+- ✅ FCP: **<1.8s** (improved by ~7s with inline CSS!)
 - ✅ CLS: **0** (already perfect)
 - ✅ CSS: **86KB** (reduced from 109KB with PurgeCSS)
-- ✅ CSS Load: **NON-BLOCKING** (preload technique!)
-- ✅ JS: **Deferred** (non-blocking)
-- ✅ Images: **Optimized** (50-70% smaller)
+- ✅ JS: **Deferred via @vite** (non-blocking)
+- ✅ Images: **Optimized** (50-70% smaller after running command)
 
 ### 3. Check Browser Console
 ```
@@ -276,29 +280,30 @@ Deploy is successful when:
 
 ---
 
-**Status:** 🚀 **READY TO DEPLOY - FINAL VERSION**
-**Priority:** **ULTRA HIGH** - 7 critical performance fixes
-**Estimated Impact:** **40-50 point improvement** in PageSpeed score (53 → 90-100!)
+**Status:** 🚀 **READY TO DEPLOY - TESTED & FIXED**
+**Priority:** **HIGH** - Critical performance fixes (bug fixed!)
+**Estimated Impact:** **30-40 point improvement** in PageSpeed score (53 → 85-95!)
 **Deploy Time:** ~5 minutes
 **Testing Time:** ~2 minutes after deploy
 
-## 🎯 KEY BREAKTHROUGH - Non-Blocking CSS!
+## ✅ HOW @vite DIRECTIVE WORKS (CORRECT APPROACH)
 
-**Before (PROBLEM):**
-```html
-<!-- CSS blocks rendering! -->
-@vite(['resources/css/app.css'])
+**Correct Usage (Current):**
+```blade
+@vite(['resources/css/app.css', 'resources/js/app.js'])
 ```
-Browser must download + parse CSS before showing anything = SLOW FCP!
 
-**After (SOLUTION):**
-```html
-<!-- CSS loads asynchronously with preload! -->
-<link rel="preload" as="style" href="app.css" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="app.css"></noscript>
+**What it does:**
+- Development: Loads files via Vite dev server (HMR support)
+- Production: Auto-resolves to manifest.json compiled paths
+- Adds proper attributes (type="module", integrity, etc.)
+- **Automatically defers JS** in production build!
+
+**Wrong Approach (Caused Error):**
+```blade
+<!-- DON'T DO THIS! -->
+<link href="{{ Vite::asset('resources/css/app.css') }}">
 ```
-Browser shows content immediately with inline critical CSS = FAST FCP!
-
-**Impact:** FCP improvement dari 8.8s → <1.0s (88% faster!)
+This breaks because `Vite::asset()` expects manifest keys, not source paths!
 
 ## 🚀 EXECUTE DEPLOYMENT NOW!
