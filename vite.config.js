@@ -16,6 +16,11 @@ export default defineConfig({
             compress: {
                 drop_console: true,
                 drop_debugger: true,
+                pure_funcs: ['console.log', 'console.info', 'console.debug'],
+                passes: 2,
+            },
+            mangle: {
+                safari10: true,
             },
         },
         rollupOptions: {
@@ -23,15 +28,29 @@ export default defineConfig({
                 manualChunks: {
                     vendor: ['axios'],
                 },
+                assetFileNames: (assetInfo) => {
+                    let extType = assetInfo.name.split('.').at(1);
+                    if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
+                        extType = 'img';
+                    }
+                    return `assets/${extType}/[name]-[hash][extname]`;
+                },
+                chunkFileNames: 'assets/js/[name]-[hash].js',
+                entryFileNames: 'assets/js/[name]-[hash].js',
             },
         },
         cssMinify: 'lightningcss',
+        cssCodeSplit: true,
         reportCompressedSize: false,
-        chunkSizeWarningLimit: 1000,
+        chunkSizeWarningLimit: 500,
+        assetsInlineLimit: 4096,
     },
     server: {
         hmr: {
             host: 'localhost',
         },
+    },
+    css: {
+        devSourcemap: false,
     },
 });
