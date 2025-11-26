@@ -2,10 +2,10 @@
 
 namespace App\Filament\Resources\Agendas\Schemas;
 
-use Filament\Schemas\Schema;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Schema;
 
 class AgendaForm
 {

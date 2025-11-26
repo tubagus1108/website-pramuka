@@ -1,11 +1,10 @@
 <?php
 
-
 namespace App\Filament\Resources\ProfileMenus\Schemas;
 
-use Filament\Schemas\Schema;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Schema;
 
 class ProfileMenuForm
 {

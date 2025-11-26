@@ -21,7 +21,7 @@ class AgendasTable
                     ->dateTime(),
                 \Filament\Tables\Columns\TextColumn::make('google_calendar_url')
                     ->label('Google Calendar URL')
-                    ->url(fn($record) => $record->google_calendar_url),
+                    ->url(fn ($record) => $record->google_calendar_url),
             ])
             ->filters([
                 //

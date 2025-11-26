@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\OrganizationMenu;
+use Illuminate\Database\Seeder;
 
 class OrganizationMenuSeeder extends Seeder
 {

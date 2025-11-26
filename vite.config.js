@@ -10,4 +10,28 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    build: {
+        minify: 'terser',
+        terserOptions: {
+            compress: {
+                drop_console: true,
+                drop_debugger: true,
+            },
+        },
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    vendor: ['axios'],
+                },
+            },
+        },
+        cssMinify: 'lightningcss',
+        reportCompressedSize: false,
+        chunkSizeWarningLimit: 1000,
+    },
+    server: {
+        hmr: {
+            host: 'localhost',
+        },
+    },
 });

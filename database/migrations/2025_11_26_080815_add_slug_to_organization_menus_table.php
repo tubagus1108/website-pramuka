@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('organization_menus', function (Blueprint $table) {
-            if (!Schema::hasColumn('organization_menus', 'slug')) {
+            if (! Schema::hasColumn('organization_menus', 'slug')) {
                 $table->string('slug')->after('title');
             }
         });
-        
+
         // Add unique constraint separately
         Schema::table('organization_menus', function (Blueprint $table) {
             $table->unique('slug');

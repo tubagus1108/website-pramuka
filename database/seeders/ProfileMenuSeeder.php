@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\ProfileMenu;
+use Illuminate\Database\Seeder;
 
 class ProfileMenuSeeder extends Seeder
 {

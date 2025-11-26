@@ -24,14 +24,14 @@ class MaterialsTable
                     ->visibility('public')
                     ->circular()
                     ->defaultImageUrl(url('/img/Logo-Pramuka.jpeg')),
-                
+
                 TextColumn::make('title')
                     ->label('Judul')
                     ->searchable()
                     ->sortable()
                     ->limit(50)
                     ->weight('bold'),
-                
+
                 TextColumn::make('category')
                     ->label('Kategori')
                     ->badge()
@@ -44,23 +44,23 @@ class MaterialsTable
                         default => 'gray',
                     })
                     ->sortable(),
-                
+
                 TextColumn::make('level')
                     ->label('Tingkat')
                     ->badge()
                     ->sortable(),
-                
+
                 TextColumn::make('views')
                     ->label('Views')
                     ->sortable()
                     ->alignCenter()
                     ->icon('heroicon-o-eye'),
-                
+
                 TextColumn::make('author')
                     ->label('Penulis')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                
+
                 IconColumn::make('is_active')
                     ->label('Status')
                     ->boolean()
@@ -68,13 +68,13 @@ class MaterialsTable
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
                     ->falseColor('danger'),
-                
+
                 TextColumn::make('published_at')
                     ->label('Tanggal Publikasi')
                     ->dateTime('d M Y H:i')
                     ->sortable()
                     ->toggleable(),
-                
+
                 TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->dateTime('d M Y')
@@ -92,7 +92,7 @@ class MaterialsTable
                         'Umum' => 'Umum',
                         'Pembina' => 'Pembina',
                     ]),
-                
+
                 SelectFilter::make('level')
                     ->label('Tingkat')
                     ->options([
@@ -100,7 +100,7 @@ class MaterialsTable
                         'Menengah' => 'Menengah',
                         'Lanjutan' => 'Lanjutan',
                     ]),
-                
+
                 TernaryFilter::make('is_active')
                     ->label('Status Aktif')
                     ->placeholder('Semua')

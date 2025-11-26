@@ -26,7 +26,7 @@ class MaterialForm
                     ->live(onBlur: true)
                     ->afterStateUpdated(fn (string $state, callable $set) => $set('slug', Str::slug($state)))
                     ->columnSpanFull(),
-                
+
                 TextInput::make('slug')
                     ->label('Slug')
                     ->required()
@@ -34,13 +34,13 @@ class MaterialForm
                     ->unique(ignoreRecord: true)
                     ->helperText('URL-friendly versi dari judul')
                     ->columnSpanFull(),
-                
+
                 Textarea::make('description')
                     ->label('Deskripsi Singkat')
                     ->rows(3)
                     ->helperText('Ringkasan singkat tentang materi ini')
                     ->columnSpanFull(),
-                
+
                 RichEditor::make('content')
                     ->label('Konten Materi')
                     ->required()
@@ -58,7 +58,7 @@ class MaterialForm
                         'codeBlock',
                     ])
                     ->columnSpanFull(),
-                
+
                 Select::make('category')
                     ->label('Kategori')
                     ->required()
@@ -71,7 +71,7 @@ class MaterialForm
                         'Pembina' => 'Pembina',
                     ])
                     ->native(false),
-                
+
                 Select::make('level')
                     ->label('Tingkat Kesulitan')
                     ->options([
@@ -80,16 +80,16 @@ class MaterialForm
                         'Lanjutan' => 'Lanjutan',
                     ])
                     ->native(false),
-                
+
                 TextInput::make('author')
                     ->label('Penulis')
                     ->maxLength(255),
-                
+
                 TagsInput::make('tags')
                     ->label('Tag')
                     ->separator(',')
                     ->helperText('Pisahkan dengan koma'),
-                
+
                 FileUpload::make('image')
                     ->label('Gambar Utama')
                     ->image()
@@ -99,7 +99,7 @@ class MaterialForm
                     ->visibility('public')
                     ->imageEditor()
                     ->helperText('Maksimal 2MB'),
-                
+
                 FileUpload::make('file_attachment')
                     ->label('File Lampiran (PDF/DOC)')
                     ->acceptedFileTypes(['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])
@@ -108,12 +108,12 @@ class MaterialForm
                     ->directory('materials/files')
                     ->visibility('public')
                     ->helperText('Maksimal 5MB - Format: PDF, DOC, DOCX'),
-                
+
                 DateTimePicker::make('published_at')
                     ->label('Tanggal Publikasi')
                     ->default(now())
                     ->native(false),
-                
+
                 Toggle::make('is_active')
                     ->label('Aktif')
                     ->default(true)

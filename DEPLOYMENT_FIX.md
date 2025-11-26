@@ -61,8 +61,10 @@ php artisan schedule:list
 crontab -e
 
 # Add this line (runs Laravel scheduler every minute)
-* * * * * cd /var/www/website-pramuka && php artisan schedule:run >> /dev/null 2>&1
+* * * * * cd /var/www/website-pramuka && php artisan schedule:run >> /var/www/website-pramuka/storage/logs/cron.log 2>&1
 ```
+
+**Note:** We redirect output to `storage/logs/cron.log` instead of `/dev/null` for debugging purposes.
 
 ## Explanation
 
@@ -133,6 +135,201 @@ tail -f /var/www/website-pramuka/storage/logs/laravel.log
 
 # Manually test schedule
 php artisan schedule:run
+```
+
+## Debugging Cron Jobs
+
+### 1. Check if Cron is Running
+```bash
+# Check cron service status
+sudo systemctl status cron
+
+# Or for older systems
+sudo service cron status
+
+# If stopped, start it
+sudo systemctl start cron
+```
+
+### 2. Verify Crontab Entry
+```bash
+# List current user's crontab
+crontab -l
+
+# Should see:
+# * * * * * cd /var/www/website-pramuka && php artisan schedule:run >> /var/www/website-pramuka/storage/logs/cron.log 2>&1
+
+# List root's crontab (if using root)
+sudo crontab -l
+```
+
+### 3. Monitor Cron Logs in Real-Time
+```bash
+# Watch cron log file (if redirected to file)
+tail -f /var/www/website-pramuka/storage/logs/cron.log
+
+# Watch system cron log
+sudo tail -f /var/log/syslog | grep CRON
+
+# Or on some systems
+sudo tail -f /var/log/cron
+```
+
+### 4. Check Laravel Scheduler Log
+```bash
+# Create a test to see if schedule runs
+cd /var/www/website-pramuka
+
+# Run schedule manually (should execute immediately)
+php artisan schedule:run
+
+# Check what would run
+php artisan schedule:list
+
+# Run specific command manually
+php artisan sitemap:generate
+```
+
+### 5. Test Cron Execution Manually
+```bash
+# Run the exact command that cron runs
+cd /var/www/website-pramuka && php artisan schedule:run
+
+# Should see output like:
+# No scheduled commands are ready to run.
+# OR
+# Running scheduled command: php artisan sitemap:generate
+```
+
+### 6. Enable Detailed Logging
+Add this to `bootstrap/app.php` after the schedule definition for debugging:
+
+```php
+->withSchedule(function (Schedule $schedule) {
+    $schedule->command('sitemap:generate')
+        ->daily()
+        ->appendOutputTo(storage_path('logs/sitemap-schedule.log'));
+})
+```
+
+Then check the log:
+```bash
+tail -f /var/www/website-pramuka/storage/logs/sitemap-schedule.log
+```
+
+### 7. Check File Permissions
+```bash
+# Ensure cron can write to storage
+ls -la /var/www/website-pramuka/storage/logs/
+
+# Fix if needed
+sudo chown -R www-data:www-data /var/www/website-pramuka/storage
+sudo chmod -R 775 /var/www/website-pramuka/storage
+```
+
+### 8. Create Test Schedule (Temporary Debug)
+Add a test schedule that runs every minute to verify cron is working:
+
+```php
+// In bootstrap/app.php
+->withSchedule(function (Schedule $schedule) {
+    $schedule->command('sitemap:generate')->daily();
+    
+    // Temporary test - runs every minute
+    $schedule->call(function () {
+        \Log::info('Cron is working! Time: ' . now());
+    })->everyMinute();
+})
+```
+
+Then watch the log:
+```bash
+tail -f /var/www/website-pramuka/storage/logs/laravel.log
+```
+
+You should see "Cron is working!" entries every minute. **Remove this test after verification.**
+
+### 9. Check Cron Environment
+Cron runs with limited environment variables. Test if PHP path is correct:
+
+```bash
+# Add temporary debug to crontab
+* * * * * which php >> /tmp/cron-debug.log 2>&1
+* * * * * cd /var/www/website-pramuka && php -v >> /tmp/cron-debug.log 2>&1
+
+# Wait 1 minute then check
+cat /tmp/cron-debug.log
+
+# Remove debug entries after checking
+crontab -e
+```
+
+### 10. Quick Debug Checklist
+```bash
+# Run all these commands to diagnose
+echo "=== Cron Service Status ==="
+sudo systemctl status cron
+
+echo -e "\n=== Crontab Entries ==="
+crontab -l
+
+echo -e "\n=== Laravel Schedule List ==="
+cd /var/www/website-pramuka && php artisan schedule:list
+
+echo -e "\n=== Manual Schedule Run ==="
+cd /var/www/website-pramuka && php artisan schedule:run
+
+echo -e "\n=== Cron Log (last 20 lines) ==="
+tail -n 20 /var/www/website-pramuka/storage/logs/cron.log
+
+echo -e "\n=== Laravel Log (last 20 lines) ==="
+tail -n 20 /var/www/website-pramuka/storage/logs/laravel.log
+
+echo -e "\n=== Storage Permissions ==="
+ls -la /var/www/website-pramuka/storage/logs/
+```
+
+### 11. Common Cron Issues & Solutions
+
+**Issue: Cron runs but command fails**
+```bash
+# Check if artisan is executable
+ls -la /var/www/website-pramuka/artisan
+
+# Make executable if needed
+chmod +x /var/www/website-pramuka/artisan
+```
+
+**Issue: "php: command not found" in cron**
+```bash
+# Use full PHP path in crontab
+which php  # Get full path, e.g., /usr/bin/php
+
+# Update crontab to use full path
+* * * * * cd /var/www/website-pramuka && /usr/bin/php artisan schedule:run >> /var/www/website-pramuka/storage/logs/cron.log 2>&1
+```
+
+**Issue: Schedule shows "Next Due: X hours" but never runs**
+```bash
+# Check server timezone
+php -r "echo date_default_timezone_get();"
+
+# Should match APP_TIMEZONE in .env
+cat /var/www/website-pramuka/.env | grep APP_TIMEZONE
+
+# Update if needed
+php artisan config:clear
+php artisan config:cache
+```
+
+**Issue: Multiple cron entries running**
+```bash
+# Check for duplicate crons
+crontab -l
+sudo crontab -l
+
+# Remove duplicates
+crontab -e
 ```
 
 ## Production Deployment Checklist
