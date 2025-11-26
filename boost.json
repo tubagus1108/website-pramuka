@@ -1,10 +1,10 @@
 {
     "agents": [
-        "cursor"
+        "copilot"
     ],
     "editors": [
-        "cursor",
         "vscode"
     ],
-    "guidelines": []
+    "guidelines": [],
+    "herd_mcp": true
 }
