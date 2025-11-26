@@ -5,6 +5,10 @@
 <meta name="author" content="Pramuka UIN Sultanah Nahrasiyah">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
+<!-- Preconnect to external domains for faster loading -->
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{ url()->current() }}">

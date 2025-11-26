@@ -10,4 +10,21 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks: {
+                    vendor: ['alpinejs']
+                }
+            }
+        },
+        cssCodeSplit: true,
+        minify: 'terser',
+        terserOptions: {
+            compress: {
+                drop_console: true,
+                drop_debugger: true
+            }
+        }
+    }
 });

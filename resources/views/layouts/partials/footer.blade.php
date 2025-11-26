@@ -3,7 +3,13 @@
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             <div class="flex items-start gap-3 md:gap-4">
-                <img src="/img/Logo-Pramuka-small.jpeg" alt="Logo" class="h-16 md:h-20 w-auto drop-shadow-lg rounded">
+                <img src="/img/Logo-Pramuka-small.jpeg" 
+                     alt="Logo Pramuka UIN Sultanah Nahrasiyah" 
+                     class="h-16 md:h-20 w-auto drop-shadow-lg rounded"
+                     width="80"
+                     height="80"
+                     loading="lazy"
+                     decoding="async">
                 <div>
                     <h3 class="font-bold text-base md:text-lg mb-2 text-yellow-400">PRAMUKA UIN</h3>
                     <p class="text-xs leading-relaxed">

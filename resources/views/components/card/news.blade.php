@@ -7,11 +7,19 @@
             <img src="{{ Storage::url($item->image) }}" 
                  alt="{{ $item->title }}" 
                  class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                 width="400"
+                 height="300"
+                 loading="lazy"
+                 decoding="async"
                  onerror="this.src='https://via.placeholder.com/400x300/1e40af/ffffff?text=Pramuka+UIN+SN'">
         @else
             <img src="https://via.placeholder.com/400x300/1e40af/ffffff?text=Pramuka+UIN+SN" 
                  alt="{{ $item->title }}" 
-                 class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                 class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                 width="400"
+                 height="300"
+                 loading="lazy"
+                 decoding="async">
         @endif
         <div class="absolute top-3 left-3">
             <span class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-3 py-1 rounded-md text-xs font-bold shadow-lg">
