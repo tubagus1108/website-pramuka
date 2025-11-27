@@ -1,10 +1,13 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\SubmittedNews;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\ValidationException;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class KirimBeritaController extends Controller
 {
@@ -64,8 +67,23 @@ class KirimBeritaController extends Controller
         }
 
         $imagePath = null;
+        $imageWebpPath = null;
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('submitted-news', 'public');
+
+            // Generate WebP version
+            $originalPath = storage_path('app/public/'.$imagePath);
+            $webpPath = str_replace(['.jpg', '.jpeg', '.png'], '.webp', $originalPath);
+            $webpStoragePath = str_replace(['.jpg', '.jpeg', '.png'], '.webp', $imagePath);
+
+            try {
+                $manager = new ImageManager(new Driver);
+                $image = $manager->read($originalPath);
+                $image->toWebp()->save($webpPath);
+                $imageWebpPath = $webpStoragePath;
+            } catch (\Exception $e) {
+                // If conversion fails, leave null
+            }
         }
 
         SubmittedNews::create([
@@ -75,6 +93,7 @@ class KirimBeritaController extends Controller
             'title' => $validated['title'],
             'content' => $validated['content'],
             'image' => $imagePath,
+            'image_webp' => $imageWebpPath,
             'status' => 'pending',
         ]);
 

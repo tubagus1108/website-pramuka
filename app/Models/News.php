@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class News extends Model
 {
@@ -13,6 +16,7 @@ class News extends Model
         'content',
         'excerpt',
         'image',
+        'image_webp',
         'category',
         'tags',
         'author',
@@ -44,5 +48,24 @@ class News extends Model
                 $news->slug = Str::slug($news->title);
             }
         });
+    }
+
+    public function setImageAttribute($value)
+    {
+        $this->attributes['image'] = $value;
+
+        if ($value && Storage::disk('public')->exists($value)) {
+            $path = storage_path('app/public/'.$value);
+            $webpPath = str_replace(['.jpg', '.jpeg', '.png'], '.webp', $path);
+
+            try {
+                $manager = new ImageManager(new Driver);
+                $image = $manager->read($path);
+                $image->toWebp()->save($webpPath);
+                $this->attributes['image_webp'] = str_replace(['.jpg', '.jpeg', '.png'], '.webp', $value);
+            } catch (\Exception $e) {
+                // If conversion fails, leave image_webp null
+            }
+        }
     }
 }

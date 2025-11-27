@@ -9,7 +9,9 @@
                      width="80"
                      height="80"
                      loading="lazy"
-                     decoding="async">
+                     decoding="async"
+                     srcset="/img/Logo-Pramuka-small.jpeg 1x"
+                     sizes="(max-width: 768px) 64px, 80px">
                 <div>
                     <h3 class="font-bold text-base md:text-lg mb-2 text-yellow-400">PRAMUKA UIN</h3>
                     <p class="text-xs leading-relaxed">

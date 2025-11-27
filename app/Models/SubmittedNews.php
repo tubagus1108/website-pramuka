@@ -18,6 +18,7 @@ class SubmittedNews extends Model
         'title',
         'content',
         'image',
+        'image_webp',
         'status',
         'admin_notes',
         'approved_by',

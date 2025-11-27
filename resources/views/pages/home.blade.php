@@ -160,13 +160,14 @@
 
                     {{-- NEWS GRID --}}
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4" id="newsGrid">
-                        @forelse($news ?? [] as $item)
+                        @forelse($news ?? [] as $index => $item)
                             <a href="/news/{{ $item->slug }}" class="news-card bg-white rounded-lg shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden group transform hover:-translate-y-1" data-category="{{ $item->category ?? 'BERITA' }}">
                                 <div class="relative overflow-hidden h-40 md:h-48 bg-gray-100">
-                                    <img src="{{ $item->image ? Storage::url($item->image) : 'https://via.placeholder.com/400x300/1e40af/ffffff?text=Pramuka+UIN' }}"
+                                    <img src="{{ $item->image_webp ? Storage::url($item->image_webp) : ($item->image ? Storage::url($item->image) : 'https://via.placeholder.com/400x300/1e40af/ffffff?text=Pramuka+UIN') }}"
                                          alt="{{ $item->title }}"
                                          class="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                                         onerror="this.src='https://via.placeholder.com/400x300/1e40af/ffffff?text=Pramuka+UIN+SN'">
+                                         @if($index === 0) fetchpriority="high" @endif
+                                         onerror="this.src='{{ $item->image ? Storage::url($item->image) : 'https://via.placeholder.com/400x300/1e40af/ffffff?text=Pramuka+UIN+SN' }}'">
                                     <div class="absolute top-2 md:top-3 left-2 md:left-3">
                                         <span class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-2 md:px-3 py-1 rounded-md text-xs font-bold shadow-lg">
                                             {{ $item->category ?? 'BERITA' }}
