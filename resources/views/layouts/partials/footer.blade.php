@@ -1,9 +1,15 @@
 {{-- FOOTER --}}
 <footer class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white mt-8 md:mt-12 py-6 md:py-8 border-t-4 border-yellow-400">
     <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 bg-blue-900/80 rounded-xl shadow-xl p-6 md:p-8">
             <div class="flex items-start gap-3 md:gap-4">
-                <img src="/img/Logo-Pramuka.jpeg" alt="Logo" class="h-16 md:h-20 w-auto drop-shadow-lg rounded">
+                <img src="/img/Logo-Pramuka-small.jpeg"
+                     alt="Logo Pramuka UIN Sultanah Nahrasiyah"
+                     class="h-16 md:h-20 w-auto drop-shadow-lg rounded"
+                     width="80"
+                     height="80"
+                     loading="lazy"
+                     decoding="async">
                 <div>
                     <h3 class="font-bold text-base md:text-lg mb-2 text-yellow-400">PRAMUKA UIN</h3>
                     <p class="text-xs leading-relaxed">
@@ -26,17 +32,17 @@
             <div>
                 <h4 class="font-bold mb-3 text-yellow-400 text-sm md:text-base">Ikuti Kami</h4>
                 <div class="flex gap-2 md:gap-3 mb-4">
-                    <a href="#" class="w-9 h-9 md:w-10 md:h-10 bg-white text-blue-900 rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
-                        <i class="fab fa-facebook-f text-sm md:text-base"></i>
+                    <a href="#" aria-label="Ikuti kami di Facebook" class="w-9 h-9 md:w-10 md:h-10 bg-blue-900 text-white rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
+                        <i class="fab fa-facebook-f text-sm md:text-base" aria-hidden="true"></i>
                     </a>
-                    <a href="#" class="w-9 h-9 md:w-10 md:h-10 bg-white text-blue-900 rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
-                        <i class="fab fa-twitter text-sm md:text-base"></i>
+                    <a href="#" aria-label="Ikuti kami di Twitter" class="w-9 h-9 md:w-10 md:h-10 bg-blue-900 text-white rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
+                        <i class="fab fa-twitter text-sm md:text-base" aria-hidden="true"></i>
                     </a>
-                    <a href="#" class="w-9 h-9 md:w-10 md:h-10 bg-white text-blue-900 rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
-                        <i class="fab fa-instagram text-sm md:text-base"></i>
+                    <a href="#" aria-label="Ikuti kami di Instagram" class="w-9 h-9 md:w-10 md:h-10 bg-blue-900 text-white rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
+                        <i class="fab fa-instagram text-sm md:text-base" aria-hidden="true"></i>
                     </a>
-                    <a href="#" class="w-9 h-9 md:w-10 md:h-10 bg-white text-blue-900 rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
-                        <i class="fab fa-youtube text-sm md:text-base"></i>
+                    <a href="#" aria-label="Tonton kami di YouTube" class="w-9 h-9 md:w-10 md:h-10 bg-blue-900 text-white rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-blue-900 transition transform hover:scale-110 shadow-md">
+                        <i class="fab fa-youtube text-sm md:text-base" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
