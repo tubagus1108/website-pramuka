@@ -5,6 +5,11 @@
 @endphp
 
 @section('main-content')
+    {{-- PAGE TITLE --}}
+    <div class="sr-only">
+        <h1>Pramuka UIN Sultanah Nahrasiyah - Racana Gerakan Pramuka Perguruan Tinggi</h1>
+    </div>
+
     {{-- HERO SLIDER --}}
     <div class="container mx-auto px-4 py-4 md:py-6">
         <div class="relative overflow-hidden rounded-xl shadow-2xl" style="height: 300px;" id="heroSlider">
@@ -217,10 +222,10 @@
             <div class="space-y-4 md:space-y-6">
                 {{-- AGENDA KEGIATAN --}}
                 <div class="bg-white rounded-lg shadow-md p-4 md:p-5 border-t-4 border-blue-600">
-                    <h4 class="font-bold text-base md:text-lg mb-3 md:mb-4 flex items-center gap-2 text-blue-800">
+                    <h3 class="font-bold text-base md:text-lg mb-3 md:mb-4 flex items-center gap-2 text-blue-800">
                         <i class="far fa-calendar-alt text-yellow-600"></i>
                         Agenda Kegiatan
-                    </h4>
+                    </h3>
                     <ul class="space-y-2 md:space-y-3">
                         @forelse($agendas ?? [] as $agenda)
                             <li class="border-l-4 border-yellow-500 pl-2 md:pl-3 py-2 hover:bg-blue-50 transition rounded-r">
@@ -251,10 +256,10 @@
 
                 {{-- VIDEO (lazy-load placeholder) --}}
                 <div class="bg-white rounded-lg shadow-md p-4 md:p-5 border-t-4 border-orange-500">
-                    <h4 class="font-bold text-base md:text-lg mb-3 md:mb-4 flex items-center gap-2 text-blue-800">
+                    <h3 class="font-bold text-base md:text-lg mb-3 md:mb-4 flex items-center gap-2 text-blue-800">
                         <i class="fab fa-youtube text-red-600" aria-hidden="true"></i>
                         <span>Video Terbaru</span>
-                    </h4>
+                    </h3>
                     <div class="aspect-video rounded-lg overflow-hidden shadow-inner bg-gray-100 relative">
                         @php
                             $videoSrc = $videoUrl ?? null;
@@ -279,10 +284,10 @@
                 {{-- TRENDING TAGS --}}
                 @if(isset($tags) && count($tags) > 0)
                     <div class="bg-white rounded-lg shadow-md p-4 md:p-5 border-t-4 border-yellow-500">
-                        <h4 class="font-bold text-base md:text-lg mb-3 md:mb-4 flex items-center gap-2 text-blue-800">
+                        <h3 class="font-bold text-base md:text-lg mb-3 md:mb-4 flex items-center gap-2 text-blue-800">
                             <i class="fas fa-tags text-yellow-600"></i>
                             Trending Tags
-                        </h4>
+                        </h3>
                         <div class="flex flex-wrap gap-2">
                             @foreach($tags as $tag)
                                 <a href="/news?tag={{ $tag }}" aria-label="Berita dengan tag {{ $tag }}" class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs hover:bg-blue-600 hover:text-white transition-shadow shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
@@ -295,10 +300,10 @@
 
                 {{-- SOCIAL MEDIA --}}
                 <div class="bg-white rounded-lg shadow-md p-4 md:p-5">
-                    <h4 class="font-bold text-base md:text-lg mb-3 md:mb-4 flex items-center gap-2 text-gray-800">
+                    <h3 class="font-bold text-base md:text-lg mb-3 md:mb-4 flex items-center gap-2 text-gray-800">
                         <i class="fas fa-share-alt text-blue-700"></i>
                         Terhubung dengan Kami
-                    </h4>
+                    </h3>
                     <div class="grid grid-cols-2 gap-2 md:gap-3">
                         <a href="#" aria-label="Ikuti kami di Facebook" class="bg-white border border-gray-100 rounded-lg p-3 text-center transition shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-200">
                             <i class="fab fa-facebook-f text-2xl text-blue-700 mb-1" aria-hidden="true"></i>
