@@ -268,8 +268,8 @@
                                 </div>
                             </button>
                         @else
-                            <div class="w-full h-full flex items-center justify-center text-gray-500">
-                                <p>Video belum tersedia</p>
+                            <div class="aspect-video rounded-lg overflow-hidden shadow-inner bg-gray-100 relative">
+                                <p class="text-gray-900">Video belum tersedia</p>
                             </div>
                         @endif
                     </div>
