@@ -45,6 +45,12 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const request = event.request;
 
+  // Do not handle non-GET requests (e.g. form POSTs) in the cache layer
+  if (request.method !== 'GET') {
+    event.respondWith(fetch(request));
+    return;
+  }
+
   // Always try network first for API requests
   if (request.url.includes('/api/') || request.mode === 'navigate') {
     event.respondWith(
@@ -58,9 +64,13 @@ self.addEventListener('fetch', (event) => {
     caches.match(request).then((cached) => {
       if (cached) return cached;
       return fetch(request).then((response) => {
-        // Save a copy in cache for future use
+        // Save a copy in cache for future use (only for GET responses)
         return caches.open(CACHE_NAME).then((cache) => {
-          try { cache.put(request, response.clone()); } catch (e) { /* some requests are opaque */ }
+          try {
+            if (request.method === 'GET' && response && response.ok) {
+              cache.put(request, response.clone());
+            }
+          } catch (e) { /* some requests are opaque or other errors */ }
           return response;
         });
       }).catch(() => {
