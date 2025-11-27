@@ -10,9 +10,26 @@ const PRECACHE_URLS = [
 ];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS))
-  );
+  event.waitUntil((async () => {
+    const cache = await caches.open(CACHE_NAME);
+    // Attempt to fetch and cache each URL individually. If one fails, skip it.
+    const results = await Promise.allSettled(PRECACHE_URLS.map(async (url) => {
+      try {
+        const resp = await fetch(url, { cache: 'no-cache' });
+        if (!resp || !resp.ok) throw new Error('Bad response');
+        await cache.put(url, resp.clone());
+        return { url, ok: true };
+      } catch (e) {
+        // swallow errors for individual resources
+        return { url, ok: false, error: e.message };
+      }
+    }));
+    // Optional: log failures (visible in devtools SW logs)
+    const failed = results.filter(r => r.status === 'fulfilled' && r.value && !r.value.ok);
+    if (failed.length) {
+      console.warn('SW: some resources failed to precache', failed.map(f => f.value.url));
+    }
+  })());
   self.skipWaiting();
 });
 
