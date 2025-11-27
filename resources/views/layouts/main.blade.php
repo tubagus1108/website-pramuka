@@ -2,6 +2,7 @@
 
 @section('content')
     @include('layouts.partials.header')
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:bg-white focus:text-blue-700 focus:px-3 focus:py-2 focus:rounded">Skip to content</a>
 
     {{-- NAVBAR --}}
     @php
@@ -22,9 +23,9 @@
     @include('components.navbar', ['menus' => $menus, 'profileMenus' => $profileMenus, 'organizationMenus' => $organizationMenus])
 
     {{-- MAIN CONTENT --}}
-    <div class="min-h-screen">
+    <main id="main-content" class="min-h-screen">
         @yield('main-content')
-    </div>
+    </main>
 
     @include('layouts.partials.footer')
 @endsection

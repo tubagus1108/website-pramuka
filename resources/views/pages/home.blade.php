@@ -11,10 +11,18 @@
             @if(isset($sliders) && count($sliders) > 0)
                 @foreach($sliders as $index => $slider)
                     <div class="slider-item absolute inset-0 transition-opacity duration-1000 {{ $index === 0 ? 'opacity-100' : 'opacity-0' }}" data-slide="{{ $index }}">
-                        <img src="{{ $slider->image ? Storage::url($slider->image) : 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=400&fit=crop' }}"
-                             alt="{{ $slider->title }}"
-                             class="w-full h-full object-cover"
-                             onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=400&fit=crop'">
+                            @php
+                               $sliderUrl = $slider->image ? Storage::url($slider->image) : 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=400&fit=crop';
+                            @endphp
+                            <img src="{{ $sliderUrl }}"
+                                alt="{{ $slider->title }}"
+                                class="w-full h-full object-cover"
+                                loading="eager"
+                                fetchpriority="high"
+                                decoding="async"
+                                srcset="{{ $sliderUrl }} 1x"
+                                sizes="100vw"
+                                onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=400&fit=crop'">
                         <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-blue-800/60 to-transparent flex items-center">
                             <div class="container mx-auto px-6 md:px-12">
                                 <div class="max-w-2xl">
@@ -29,6 +37,25 @@
                                     @endif
                                 </div>
                             </div>
+                                <script>
+                                    // Lazy-load iframe when placeholder clicked
+                                    document.addEventListener('click', function (e) {
+                                        const target = e.target.closest('.video-placeholder');
+                                        if (!target) return;
+                                        const src = target.getAttribute('data-src');
+                                        if (!src) return;
+                                        const iframe = document.createElement('iframe');
+                                        iframe.setAttribute('width', '100%');
+                                        iframe.setAttribute('height', '100%');
+                                        iframe.setAttribute('src', src + '?autoplay=1');
+                                        iframe.setAttribute('frameborder', '0');
+                                        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+                                        iframe.setAttribute('allowfullscreen', '');
+                                        iframe.className = 'rounded-lg';
+                                        // replace placeholder with iframe
+                                        target.parentNode.replaceChild(iframe, target);
+                                    });
+                                </script>
                         </div>
                     </div>
                 @endforeach
@@ -36,7 +63,7 @@
                 @if(count($sliders) > 1)
                     <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
                         @foreach($sliders as $index => $slider)
-                            <button onclick="goToSlide({{ $index }})" class="slider-dot w-2 h-2 md:w-3 md:h-3 rounded-full transition-all {{ $index === 0 ? 'bg-yellow-400 w-6 md:w-8' : 'bg-white/50 hover:bg-white/75' }}"></button>
+                            <button type="button" onclick="goToSlide({{ $index }})" class="slider-dot w-2 h-2 md:w-3 md:h-3 rounded-full transition-all {{ $index === 0 ? 'bg-yellow-400 w-6 md:w-8' : 'bg-white/50 hover:bg-white/75' }}" aria-label="Lihat slide {{ $index + 1 }}"></button>
                         @endforeach
                     </div>
                 @endif
@@ -221,36 +248,44 @@
                     </a>
                 </div>
 
-                {{-- VIDEO --}}
+                {{-- VIDEO (lazy-load placeholder) --}}
                 <div class="bg-white rounded-lg shadow-md p-4 md:p-5 border-t-4 border-orange-500">
                     <h4 class="font-bold text-base md:text-lg mb-3 md:mb-4 flex items-center gap-2 text-blue-800">
-                        <i class="fab fa-youtube text-red-600"></i>
-                        Video Terbaru
+                        <i class="fab fa-youtube text-red-600" aria-hidden="true"></i>
+                        <span>Video Terbaru</span>
                     </h4>
-                    <div class="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg overflow-hidden shadow-inner">
-                        <iframe width="100%"
-                                height="100%"
-                                src="..."
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen
-                                class="rounded-lg"
-                                title="Video profil Pramuka UIN Suna">
-                        </iframe>
+                    <div class="aspect-video rounded-lg overflow-hidden shadow-inner bg-gray-100 relative">
+                        @php
+                            $videoSrc = $videoUrl ?? null;
+                        @endphp
+                        @if($videoSrc)
+                            <button type="button" class="video-placeholder w-full h-full block relative" data-src="{{ $videoSrc }}" aria-label="Putar video - Video profil Pramuka UIN Suna">
+                                <img src="https://img.youtube.com/vi/{{ preg_match('/youtu\.be\/([\w-]+)/', $videoSrc, $m) ? ($m[1] ?? '') : (preg_match('/v=([\w-]+)/', $videoSrc, $n) ? ($n[1] ?? '') : '') }}/hqdefault.jpg" alt="Video profil Pramuka UIN Suna" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="bg-white/90 rounded-full p-3 shadow-lg">
+                                        <svg class="w-6 h-6 text-red-600" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                                    </div>
+                                </div>
+                            </button>
+                        @else
+                            <div class="w-full h-full flex items-center justify-center text-gray-500">
+                                <p>Video belum tersedia</p>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
                 {{-- TRENDING TAGS --}}
                 @if(isset($tags) && count($tags) > 0)
-                    <div class="bg-gradient-to-br from-blue-50 to-yellow-50 rounded-lg shadow-md p-4 md:p-5 border-t-4 border-yellow-500">
+                    <div class="bg-white rounded-lg shadow-md p-4 md:p-5 border-t-4 border-yellow-500">
                         <h4 class="font-bold text-base md:text-lg mb-3 md:mb-4 flex items-center gap-2 text-blue-800">
                             <i class="fas fa-tags text-yellow-600"></i>
                             Trending Tags
                         </h4>
                         <div class="flex flex-wrap gap-2">
                             @foreach($tags as $tag)
-                                <a href="/news?tag={{ $tag }}" class="px-2 md:px-3 py-1 bg-white text-blue-700 border border-blue-300 rounded-full text-xs hover:bg-blue-600 hover:text-white hover:border-blue-600 transition shadow-sm">
-                                    #{{ $tag }}
+                                <a href="/news?tag={{ $tag }}" aria-label="Berita dengan tag {{ $tag }}" class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs hover:bg-blue-600 hover:text-white transition-shadow shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
+                                    <span aria-hidden="true">#</span><span>{{ $tag }}</span>
                                 </a>
                             @endforeach
                         </div>
@@ -258,27 +293,27 @@
                 @endif
 
                 {{-- SOCIAL MEDIA --}}
-                <div class="bg-gradient-to-br from-blue-700 via-blue-600 to-blue-800 rounded-lg shadow-lg p-4 md:p-5 text-white">
-                    <h4 class="font-bold text-base md:text-lg mb-3 md:mb-4 flex items-center gap-2">
-                        <i class="fas fa-share-alt"></i>
+                <div class="bg-white rounded-lg shadow-md p-4 md:p-5">
+                    <h4 class="font-bold text-base md:text-lg mb-3 md:mb-4 flex items-center gap-2 text-gray-800">
+                        <i class="fas fa-share-alt text-blue-700"></i>
                         Terhubung dengan Kami
                     </h4>
                     <div class="grid grid-cols-2 gap-2 md:gap-3">
-                        <a href="#" aria-label="Ikuti kami di Facebook" class="bg-white/20 hover:bg-white/30 backdrop-blur rounded-lg p-2 md:p-3 text-center transition transform hover:scale-105">
-                            <i class="fab fa-facebook-f text-xl md:text-2xl mb-1 md:mb-2" aria-hidden="true"></i>
-                            <p class="text-xs">Facebook</p>
+                        <a href="#" aria-label="Ikuti kami di Facebook" class="bg-white border border-gray-100 rounded-lg p-3 text-center transition shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-200">
+                            <i class="fab fa-facebook-f text-2xl text-blue-700 mb-1" aria-hidden="true"></i>
+                            <p class="text-xs text-gray-600">Facebook</p>
                         </a>
-                        <a href="#" aria-label="Ikuti kami di Twitter" class="bg-white/20 hover:bg-white/30 backdrop-blur rounded-lg p-2 md:p-3 text-center transition transform hover:scale-105">
-                            <i class="fab fa-twitter text-xl md:text-2xl mb-1 md:mb-2" aria-hidden="true"></i>
-                            <p class="text-xs">Twitter</p>
+                        <a href="#" aria-label="Ikuti kami di Twitter" class="bg-white border border-gray-100 rounded-lg p-3 text-center transition shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-200">
+                            <i class="fab fa-twitter text-2xl text-blue-700 mb-1" aria-hidden="true"></i>
+                            <p class="text-xs text-gray-600">Twitter</p>
                         </a>
-                        <a href="#" aria-label="Ikuti kami di Instagram" class="bg-white/20 hover:bg-white/30 backdrop-blur rounded-lg p-2 md:p-3 text-center transition transform hover:scale-105">
-                            <i class="fab fa-instagram text-xl md:text-2xl mb-1 md:mb-2" aria-hidden="true"></i>
-                            <p class="text-xs">Instagram</p>
+                        <a href="#" aria-label="Ikuti kami di Instagram" class="bg-white border border-gray-100 rounded-lg p-3 text-center transition shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-200">
+                            <i class="fab fa-instagram text-2xl text-blue-700 mb-1" aria-hidden="true"></i>
+                            <p class="text-xs text-gray-600">Instagram</p>
                         </a>
-                        <a href="#" aria-label="Tonton kami di YouTube" class="bg-white/20 hover:bg-white/30 backdrop-blur rounded-lg p-2 md:p-3 text-center transition transform hover:scale-105">
-                            <i class="fab fa-youtube text-xl md:text-2xl mb-1 md:mb-2" aria-hidden="true"></i>
-                            <p class="text-xs">YouTube</p>
+                        <a href="#" aria-label="Tonton kami di YouTube" class="bg-white border border-gray-100 rounded-lg p-3 text-center transition shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-200">
+                            <i class="fab fa-youtube text-2xl text-blue-700 mb-1" aria-hidden="true"></i>
+                            <p class="text-xs text-gray-600">YouTube</p>
                         </a>
                     </div>
                 </div>
