@@ -34,6 +34,10 @@
         .via-blue-50 { --tw-gradient-to: rgb(239 246 255 / 0); --tw-gradient-stops: var(--tw-gradient-from), #eff6ff, var(--tw-gradient-to); }
         .to-yellow-50 { --tw-gradient-to: #fefce8; }
     </style>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2579432280026048"
+            crossorigin="anonymous"></script>
 </head>
 <body class="bg-gradient-to-br from-gray-50 via-blue-50 to-yellow-50 min-h-screen">
     @yield('content')
